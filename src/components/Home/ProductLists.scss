@@ -1,0 +1,84 @@
+#productListsMain {
+  width: 70%;
+  max-width: 1200px;
+  #productLists {
+    margin: 25px 0 35px 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 210px));
+    grid-gap: 15px;
+    justify-content: center;
+    .grid-item {
+      position: relative;
+      color: #fff;
+      background-color: #ffffff;
+      border-radius: 5px;
+      box-shadow: 3px 2px 8px #e2e2e2;
+      border: 2px solid #ffffff;
+      &:hover {
+        cursor: pointer;
+        border: 2px solid #ff7b00;
+        box-shadow: 3px 2px 8px #b1b1b1;
+        box-sizing: border-box;
+    }
+      .product-tag {
+        position: absolute;
+        background-color: #FFB800;
+        border: 1px solid #ffffff;
+        padding: 0 20px;
+        font-size: 14px;
+        margin: 2px 0 0 2px;
+      }
+      .product-image {
+        width: 100%;
+      }
+      .product-name {
+        color: #000000;
+        text-align: center;
+        margin: 5px 0;
+      }
+      .product-price-box {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 10px;
+        .product-price {
+          background-color: #FFB800;
+          border-radius: 15px;
+          font-size: 13px;
+          padding: 1px 15px;
+        }
+      }
+      .product-line {
+        margin: 10px 20px;
+        border: 1px solid #dfdfdf;
+        background-color: #dfdfdf;
+        border-radius: 10px;
+        outline: none;
+      }
+      .product-detail {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 5px;
+        .product-detail-button {
+          color: #FFB800;
+          width: 150px;
+          height: 35px;
+          outline: none;
+          border: 1px solid #FFB800;
+          background-color: #ffffff;
+          border-radius: 5px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          cursor: pointer;
+          &:hover {
+            background-color: #FFB800;
+            color: #ffffff;
+          }
+        }
+      }
+    }
+  }
+  @media (max-width: 850px) {
+    width: 100%;
+  }
+}
