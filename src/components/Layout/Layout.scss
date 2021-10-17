@@ -1,0 +1,14 @@
+#layout {
+  $navHeight: 50px;
+  $footerHeight: 55px;
+  background-color:#F5F5F5;
+  #navBox {
+    height: $navHeight;
+  }
+  #bodyBox {
+    min-height: calc(100vh - (#{$navHeight} + #{$footerHeight}));
+  }
+  #footerBox {
+    height: $footerHeight;
+  }
+}
