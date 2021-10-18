@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { link } from "svelte-routing";
+  import { push } from 'svelte-spa-router'
   let isLogin: boolean = false
 </script>
 
@@ -7,17 +7,17 @@
   <div id="navBar">
     <div id="navBox">
       <div id="logoBox">
-        <div id="logo">
+        <div id="logo" on:click={() => push('/')}>
           <i class="fas fa-square" aria-hidden="true"></i>
         </div>
-        <div id="logoText">
+        <div id="logoText" on:click={() => push('/')}>
           เฮฮาหมูกระทะ
         </div>
       </div>
       {#if !isLogin}
         <div id="loginRegisBox">
           <button class="login-regis-btn">สมัครสมาชิก</button>
-          <button class="login-regis-btn">เข้าสู่ระบบ</button>
+          <button class="login-regis-btn" on:click={() => push('/login')}>เข้าสู่ระบบ</button>
         </div>
       {:else}
         <div id="detailsBox">

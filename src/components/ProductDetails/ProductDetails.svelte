@@ -1,5 +1,6 @@
 <script lang="ts">
-
+  export let params = {}
+  console.log(params)
 </script>
 
 <main id="productDetailMain">

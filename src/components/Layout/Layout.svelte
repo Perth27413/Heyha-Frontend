@@ -1,15 +1,15 @@
 <script lang="ts">
   import Router from 'svelte-spa-router'
-  import NavBar from "../NavBar/NavBar.svelte";
-  import Home from "../Home/Home.svelte";
-  import Login from '../Login/Login.svelte';
-  import Footer from "../Footer/Footer.svelte";
+  import NavBar from "../NavBar/NavBar.svelte"
+  import Home from "../Home/Home.svelte"
+  import Login from '../Login/Login.svelte'
+  import Footer from "../Footer/Footer.svelte"
   import ProductDetails from "../ProductDetails/ProductDetails.svelte"
 
-  let isLogin: boolean = true
+  let isLogin: boolean = false
   const routes = {
     '/': Home,
-    '/product': ProductDetails,
+    '/product/:id': ProductDetails,
     '/login': isLogin ? Home : Login,
     '*': Home,
   }
