@@ -2,6 +2,7 @@
   import NavBar from "../NavBar/NavBar.svelte";
   import Home from "../Home/Home.svelte";
   import Footer from "../Footer/Footer.svelte";
+  import ProductDetails from "../ProductDetails/ProductDetails.svelte"
 </script>
 
 <main>
@@ -11,6 +12,7 @@
     </div>
     <div id="bodyBox">
       <Home/>
+      <!-- <ProductDetails/> -->
     </div>
     <div id="footerBox">
       <Footer/>
