@@ -8,11 +8,9 @@
   let orderSelectLists: Array<SelectModel> = []
   
   onMount(async ()=> {
-    convertOrderListsToOrderSelectLists()
   })
 
   function convertOrderListsToOrderSelectLists(): Array<SelectModel> {
-    
     orderLists.forEach((item: OrderModel) => {
       let orderSelect: SelectModel = {value: item.id, label: item.name}
       orderSelectLists.push(orderSelect)

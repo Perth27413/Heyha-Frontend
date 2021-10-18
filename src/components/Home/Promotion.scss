@@ -1,0 +1,60 @@
+#promotionMain {
+  background-color: #ffffff;
+  width: 100%;
+  box-shadow: 3px 2px 8px #b1b1b1;
+  display: flex;
+  justify-content: center;
+  #promotionBox {
+    max-width: 1200px;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    #banner1Box {
+      margin: 10px 0 5px 0;
+      text-align: center;
+      #banner1 {
+        width: 60%;
+        min-width: 350px;
+      }
+    }
+    #promotionTextBox {
+      width: 45%;
+      display: flex;
+      flex-flow: row;
+      justify-content: center;
+      align-items: center;
+      .line {
+        flex: 1;
+        margin: 0 20px;
+        height: 1px;
+        outline: none;
+        border: none;
+        background-color: #000000;
+      }
+      #promotionText {
+        color: #000000;
+      }
+    }
+    #banner {
+      max-width: 1200px;
+      display: flex;
+      margin: 10px 0;
+      .banner-promotion {
+        display: flex;
+        justify-content: center;
+        &:first-child {
+          justify-content: flex-end;
+          margin-right: 5px;
+        }
+        &:last-child {
+          justify-content: flex-start;
+          margin-left: 5px;
+        }
+        .promotion-img {
+          width: 75%;
+          min-width: 170px;
+        }
+      }
+    }
+  }
+}
