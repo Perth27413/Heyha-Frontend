@@ -1,5 +1,5 @@
 <script lang="ts">
-
+  let isLogin: boolean = false
 </script>
 
 <main>
@@ -13,41 +13,48 @@
           เฮฮาหมูกระทะ
         </div>
       </div>
-      <div id="detailsBox">
-        <div id="cartMobile">
-          <div id="cartMobileBox">
-           <div id="cartMobileIcon">
-            <i class="fas fa-shopping-cart" aria-hidden="true"></i>
-           </div>
-            <div id="cartMobileCount">
-              1
-            </div>
-          </div>
+      {#if !isLogin}
+        <div id="loginRegisBox">
+          <button class="login-regis-btn">สมัครสมาชิก</button>
+          <button class="login-regis-btn">เข้าสู่ระบบ</button>
         </div>
-        <div id="cartBtn">
-          <div id="cartBtnIcon">
-            <i class="fas fa-shopping-cart" aria-hidden="true"></i>
-          </div>
-          <div id="cartBtnText">
-            ตะกร้าสินค้า
-          </div>
-          <div id="cartBtnCount">
-            <div id="countBox">
-              <div id="countText">
+      {:else}
+        <div id="detailsBox">
+          <div id="cartMobile">
+            <div id="cartMobileBox">
+            <div id="cartMobileIcon">
+              <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+            </div>
+              <div id="cartMobileCount">
                 1
               </div>
             </div>
           </div>
-        </div>
-        <div id="userDetails">
-          <div id="userText">
-            PERTH
+          <div id="cartBtn">
+            <div id="cartBtnIcon">
+              <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+            </div>
+            <div id="cartBtnText">
+              ตะกร้าสินค้า
+            </div>
+            <div id="cartBtnCount">
+              <div id="countBox">
+                <div id="countText">
+                  1
+                </div>
+              </div>
+            </div>
           </div>
-          <div id="userIcon">
-            <i class="fas fa-user" aria-hidden="true"></i>
+          <div id="userDetails">
+            <div id="userText">
+              PERTH
+            </div>
+            <div id="userIcon">
+              <i class="fas fa-user" aria-hidden="true"></i>
+            </div>
           </div>
         </div>
-      </div>
+      {/if}
     </div>
   </div>
 </main>
