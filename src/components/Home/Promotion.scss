@@ -1,0 +1,22 @@
+#promotionMain {
+  background-color: #ffffff;
+  width: 100%;
+  box-shadow: 3px 2px 8px #b1b1b1;
+  display: flex;
+  justify-content: center;
+  #promotionBox {
+    max-width: 1200px;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    #banner1Box {
+      height: 250px;
+      margin: 10px 0;
+      text-align: center;
+      #banner1 {
+        width: 60%;
+        min-width: 350px;
+      }
+    }
+  }
+}
