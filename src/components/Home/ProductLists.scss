@@ -2,11 +2,53 @@
   width: 70%;
   max-width: 1200px;
   #productLists {
-    margin: 25px 0 35px 0;
+    margin: 5px 0 35px 0;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(180px, 210px));
     grid-gap: 15px;
     justify-content: center;
+    #controlBar {
+      grid-column: span 5;
+      height: 35px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      #orderText {
+        margin-right: 8px;
+        color: #7B7B7B;
+        font-size: 14px;
+      }
+      #orderBox {
+        width: 150px;
+        font-size: 14px;
+        --border: 1px solid #bebebe;
+        --borderFocusColor: #7B7B7B;
+        --borderHoverColor: #7B7B7B;
+        --borderRadius: 5px;
+        --inputPadding: 3px 35px 0 10px;
+        --indicatorHeight: 20px;
+        --height: 35px;
+        --indicatorTop: 7px;
+      }
+      @media screen and (max-width: 1585px) {
+        grid-column: span 4;
+      }
+      @media screen and (max-width: 1264px), (max-width: 850px) {
+        grid-column: span 3;
+      }
+      @media screen and (max-width: 942px) and (min-width: 850px), (max-width: 659px) {
+        grid-column: span 2;
+      }
+      @media screen and (max-width: 434px) {
+        grid-column: span 1;
+        #orderText {
+          display: none;
+        }
+        #orderBox {
+          width: 100%;
+        }
+      }
+    }
     .grid-item {
       position: relative;
       color: #fff;
@@ -15,7 +57,6 @@
       box-shadow: 3px 2px 8px #e2e2e2;
       border: 2px solid #ffffff;
       &:hover {
-        cursor: pointer;
         border: 2px solid #ff7b00;
         box-shadow: 3px 2px 8px #b1b1b1;
         box-sizing: border-box;
@@ -34,7 +75,11 @@
       .product-name {
         color: #000000;
         text-align: center;
-        margin: 5px 0;
+        margin: 5px 10px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: calc(100% - 20px);
+        white-space: nowrap;
       }
       .product-price-box {
         display: flex;

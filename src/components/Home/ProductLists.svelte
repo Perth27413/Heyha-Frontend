@@ -1,9 +1,42 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
+  import Select from 'svelte-select';
+  import OrderModel from '../../model/OrderModel';
+  import SelectModel from '../../model/SelectModel';
 
+  let orderLists: Array<OrderModel> = [{id: 1, name: 'วันที่เพิ่มล่าสุด'}, {id: 2, name: 'ราคาต่ำสุด'}]
+  let orderSelectLists: Array<SelectModel> = []
+  
+  onMount(async ()=> {
+    convertOrderListsToOrderSelectLists()
+  })
+
+  function convertOrderListsToOrderSelectLists(): Array<SelectModel> {
+    
+    orderLists.forEach((item: OrderModel) => {
+      let orderSelect: SelectModel = {value: item.id, label: item.name}
+      orderSelectLists.push(orderSelect)
+    })
+    return orderSelectLists
+  }
 </script>
 
 <main id="productListsMain">
   <div id="productLists">
+    <div id="controlBar">
+      <div id="orderText">
+        การเรียงลำดับสินค้า :
+      </div>
+      <div id="orderBox">
+        <Select id="filterSelect" placeholder="วันที่เพิ่มล่าสุด"
+          isClearable={false} 
+          items={convertOrderListsToOrderSelectLists()}
+          value={orderSelectLists[0]}
+          isSearchable={false}
+          showChevron={true}
+        />
+      </div>
+    </div>
     {#each Array(15) as _, i}
       <div class="grid-item">
         <div class="product-tag">แนะนำ</div>
@@ -18,7 +51,6 @@
         </div>
       </div>  
     {/each} 
-    
   </div>
 </main>
 
