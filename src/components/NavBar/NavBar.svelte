@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { link } from "svelte-routing";
   let isLogin: boolean = false
 </script>
 
