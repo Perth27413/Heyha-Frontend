@@ -3,8 +3,8 @@
 </script>
 
 <main>
-  <div id="footer">
-    this is footer
+  <div id="footer" >
+    © 2021 เฮฮาหมูกระทะออนไลน์ 
   </div>
 </main>
 

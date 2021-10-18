@@ -1,6 +1,10 @@
 #footer {
+  display: flex;
   $footerHeight: 50px;
   height: $footerHeight;
   background-color: #ffffff;
   border-top: 5px solid #FFB800;
+  color: #939393;
+  align-items: center;
+  justify-content: center;
 }
