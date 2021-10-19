@@ -5,32 +5,38 @@
   justify-content: center;
   align-items: center;
   height: calc(100vh - (#{$navHeight} + #{$footerHeight}));
+  overflow: auto;
   #loginBox {
     border-radius: 5px;
-    font-size: 2rem;
-    padding: 30px 15px 15px;
+    font-size: 24px;
+    padding: 30px 20px 15px 20px;
     background-color: #fff;
-    width: 350px;
+    width: 280px;
     box-shadow: 0 4px 4px #0000003F;
     display: flex;
     flex-flow: column wrap;
     align-items: center;
+    #loginHeaderText {
+      margin-bottom: 20px;
+    }
     .input-box {
-      font-size: 1rem;
       height: 40px;
       width: 100%;
       position: relative;
-      margin-bottom: 25px;
+      margin-bottom: 15px;
+      font-size: 14px;
       .input {
         height: 40px;
         width: 100%;
         padding: 0 10px 0 40px;
+        border-radius: 5px;
+        outline: none;
       }
       .input-icon {
         top: 50%;
         transform: translateY(-50%);
         z-index: 2;
-        margin-left: 10px;
+        margin-left: 15px;
       }
     }
     .login-button {
@@ -43,6 +49,12 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      outline: none;
+      border: none;
+      cursor: pointer;
+      &:hover {
+        background-color: #ffa600;
+      }
     }
     .box-text{
       display: flex;
