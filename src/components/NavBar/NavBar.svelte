@@ -16,7 +16,7 @@
       </div>
       {#if !isLogin}
         <div id="loginRegisBox">
-          <button class="login-regis-btn">สมัครสมาชิก</button>
+          <button class="login-regis-btn" on:click={() => push('/register')}>สมัครสมาชิก</button>
           <button class="login-regis-btn" on:click={() => push('/login')}>เข้าสู่ระบบ</button>
         </div>
       {:else}
