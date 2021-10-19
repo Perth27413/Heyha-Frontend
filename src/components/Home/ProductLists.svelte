@@ -1,13 +1,14 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
-  import Select from 'svelte-select';
-  import OrderModel from '../../model/OrderModel';
-  import SelectModel from '../../model/SelectModel';
+  import { push } from 'svelte-spa-router'
+  import { onMount } from 'svelte'
+  import Select from 'svelte-select'
+  import OrderModel from '../../model/OrderModel'
+  import SelectModel from '../../model/SelectModel'
 
   let orderLists: Array<OrderModel> = [{id: 1, name: 'วันที่เพิ่มล่าสุด'}, {id: 2, name: 'ราคาต่ำสุด'}]
   let orderSelectLists: Array<SelectModel> = []
   
-  onMount(async ()=> {
+  onMount(async() => {
   })
 
   function convertOrderListsToOrderSelectLists(): Array<SelectModel> {
@@ -45,7 +46,7 @@
         </div>
         <hr class="product-line">
         <div class="product-detail">
-          <button class="product-detail-button">รายละเอียดสินค้า</button>
+          <button class="product-detail-button" on:click={() => push('/product/1')}>รายละเอียดสินค้า</button>
         </div>
       </div>  
     {/each} 

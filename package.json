@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "rollup -c",
-    "dev": "rollup -c -w",
+    "dev": "rollup -c -w -s",
     "start": "sirv public --no-clear",
     "check": "svelte-check --tsconfig ./tsconfig.json"
   },
@@ -28,6 +28,7 @@
     "node-sass": "^6.0.1",
     "sass": "^1.43.2",
     "sirv-cli": "^1.0.0",
-    "svelte-select": "^4.4.3"
+    "svelte-select": "^4.4.3",
+    "svelte-spa-router": "^3.2.0"
   }
 }
