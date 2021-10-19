@@ -1,7 +1,7 @@
 <script lang="ts">
   import NavBar from "../NavBar/NavBar.svelte";
-  import Home from "../Home/Home.svelte";
   import Footer from "../Footer/Footer.svelte";
+  import Login from "../Login/Login.svelte";
 </script>
 
 <main>
@@ -10,7 +10,7 @@
       <NavBar/>
     </div>
     <div id="bodyBox">
-      <Home/>
+      <Login/>
     </div>
     <div id="footerBox">
       <Footer/>
