@@ -19,10 +19,9 @@
             <label>เข้าสู่ระบบ</label>
         </div>
         <div class="box-text">       
-            <label class="label-login">ยังไม่มีบัญชีผู้ใช้</label>
+            <label class="label-login">ยังไม่มีบัญชีผู้ใช้?</label>
             <label class="label-regis"  > สมัครสมาชิก</label>
         </div>
-        
     </div>
 </main>
 
