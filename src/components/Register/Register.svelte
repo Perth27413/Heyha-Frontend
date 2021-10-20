@@ -1,10 +1,10 @@
 <script lang="ts">
   import md5 from 'md5'
+  import { navigate } from "svelte-routing"
   import UserModel from '../../model/users/UserModel';
   import UserRegisterRequestModel from '../../model/users/UserRegisterRequestModel';
   import { post } from '../../store/api'
   import { alertSuccess, alertWarning, alertError } from '../../store/notify'
-  import { push } from 'svelte-spa-router'
 
   let registerRequest: UserRegisterRequestModel = new UserRegisterRequestModel
   let isLoading: boolean = false
@@ -25,7 +25,7 @@
       const userDetail: UserModel = await post('/user/register', newRequest)
       if (userDetail.id) {
         await alertSuccess('สมัครสมาชิกสำเร็จ')
-        push('/login')
+        navigate('/login')
       }
     } catch (error) {
       alertError(error)
@@ -96,7 +96,7 @@
     {/if}
     <div class="box-text">
       <label for="register-text" class="label-regis">มีบัญชีผู้ใช้แล้ว?</label>
-      <label for="register-text" class="label-login"> เข้าสู่ระบบ</label>
+      <label for="register-text" class="label-login" on:click={() => navigate('/login')}> เข้าสู่ระบบ</label>
     </div>
   </div>
 </main>

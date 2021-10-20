@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "build": "rollup -c",
-    "dev": "rollup -c -w -s",
-    "start": "sirv public --no-clear",
+    "dev": "rollup -c -w -s --single",
+    "start": "sirv public -s --no-clear",
     "check": "svelte-check --tsconfig ./tsconfig.json"
   },
   "devDependencies": {
@@ -30,8 +30,8 @@
     "node-sass": "^6.0.1",
     "sass": "^1.43.2",
     "sirv-cli": "^1.0.0",
+    "svelte-routing": "^1.6.0",
     "svelte-select": "^4.4.3",
-    "svelte-spa-router": "^3.2.0",
     "sweetalert2": "^11.1.9"
   }
 }

@@ -74,7 +74,11 @@
         font-size: 13px;
         color: #FFB800 ;
         margin-left: 5px;
+        &:hover {
+          cursor: pointer;
+          color: #ff7300;
+        }
+      }
     }
-  }
   }
 }

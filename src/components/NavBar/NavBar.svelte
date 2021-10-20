@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { push } from 'svelte-spa-router'
+  import { navigate } from "svelte-routing"
   import { isLogin, getIsLogin, setLogout } from '../../store/user'
   import { onMount } from 'svelte';
 import { alertSuccess } from '../../store/notify';
@@ -19,7 +19,7 @@ import { alertSuccess } from '../../store/notify';
   async function logout(): Promise<void> {
     setLogout()
     await alertSuccess('ออกจากระบบสำเร็จ')
-    push('/')
+    navigate('/')
   }
 </script>
 
@@ -27,17 +27,17 @@ import { alertSuccess } from '../../store/notify';
   <div id="navBar">
     <div id="navBox">
       <div id="logoBox">
-        <div id="logo" on:click={() => push('/')}>
+        <div id="logo" on:click={() => navigate('/')}>
           <i class="fas fa-square" aria-hidden="true"></i>
         </div>
-        <div id="logoText" on:click={() => push('/')}>
+        <div id="logoText" on:click={() => navigate('/')}>
           เฮฮาหมูกระทะ
         </div>
       </div>
       {#if !loginChecked}
         <div id="loginRegisBox">
-          <button class="login-regis-btn" on:click={() => push('/register')}>สมัครสมาชิก</button>
-          <button class="login-regis-btn" on:click={() => push('/login')}>เข้าสู่ระบบ</button>
+          <button class="login-regis-btn" on:click={() => navigate('/register')}>สมัครสมาชิก</button>
+          <button class="login-regis-btn" on:click={() => navigate('/login')}>เข้าสู่ระบบ</button>
         </div>
       {:else}
         <div id="detailsBox">
@@ -76,7 +76,7 @@ import { alertSuccess } from '../../store/notify';
           </div>
           {#if isShowLogout}
           <div id="logOut" on:click={logout}>
-            <label for="">ออกจากระบบ</label>
+            <label for="" id="logoutText">ออกจากระบบ</label>
           </div>
           {/if}
         </div>
