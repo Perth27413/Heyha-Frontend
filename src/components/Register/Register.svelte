@@ -1,22 +1,31 @@
 <script lang="ts">
+  import md5 from 'md5'
   import UserModel from '../../model/users/UserModel';
   import UserRegisterRequestModel from '../../model/users/UserRegisterRequestModel';
   import { post } from '../../store/api'
   import { alertSuccess, alertWarning, alertError } from '../../store/notify'
+  import { push } from 'svelte-spa-router'
 
   let registerRequest: UserRegisterRequestModel = new UserRegisterRequestModel
+  let isLoading: boolean = false
 
   async function onRegisterButtonClick(): Promise<void> {
     if (validateInputRequest() && validateEmail()) {
-      postRegister()
+      isLoading = true
+      setTimeout(() => {
+        postRegister()
+        isLoading = false
+      }, 1500)
     }
   }
 
   async function postRegister(): Promise<void> {
     try {
-      const userDetail: UserModel = await post('/user/register', registerRequest)
+      const newRequest: UserRegisterRequestModel = mapAndConvertRequestPasswordToMD5()
+      const userDetail: UserModel = await post('/user/register', newRequest)
       if (userDetail.id) {
-        alertSuccess('สมัครสมาชิกสำเร็จ')
+        await alertSuccess('สมัครสมาชิกสำเร็จ')
+        push('/login')
       }
     } catch (error) {
       alertError(error)
@@ -40,6 +49,12 @@
       alertWarning('โปรดกรอกอีเมลให้ถูกต้อง')
     }
     return result
+  }
+
+  function mapAndConvertRequestPasswordToMD5(): UserRegisterRequestModel {
+    const newRequest: UserRegisterRequestModel = {...registerRequest}
+    newRequest.password = md5(newRequest.password)
+    return newRequest
   }
 </script>
 
@@ -74,7 +89,11 @@
       <i class="fa fa-address-book input-icon" style="position: absolute" aria-hidden="true"></i>
       <input class="input"  type="text" placeholder="ที่อยู่" bind:value={registerRequest.address}>
     </div>
-    <button class="regis-button" on:click="{onRegisterButtonClick}">สมัครสมาชิก</button>
+    {#if !isLoading}
+      <button class={`regis-button ${isLoading ? 'is-loading' : ''}`} on:click="{onRegisterButtonClick}">สมัครสมาชิก</button>
+      {:else}
+        <button class={`regis-button ${isLoading ? 'is-loading' : ''}`} on:click="{onRegisterButtonClick}"><i class="fa fa-spinner fa-spin icon-loading"></i></button>
+    {/if}
     <div class="box-text">
       <label for="register-text" class="label-regis">มีบัญชีผู้ใช้แล้ว?</label>
       <label for="register-text" class="label-login"> เข้าสู่ระบบ</label>

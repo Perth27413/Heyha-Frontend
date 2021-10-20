@@ -41,7 +41,7 @@
     }
     .login-button {
       color: #fff;
-      font-size: 1rem;
+      font-size: 14px;
       height: 40px;
       width: 100%;
       background-color: #FFB800;
@@ -54,6 +54,13 @@
       cursor: pointer;
       &:hover {
         background-color: #ffa600;
+      }
+      &.is-loading {
+        cursor: wait;
+        background-color: #ffa600;
+      }
+      .icon-loading {
+        font-size: 24px;
       }
     }
     .box-text{
