@@ -5,11 +5,13 @@
   import Login from '../Login/Login.svelte'
   import Footer from "../Footer/Footer.svelte"
   import ProductDetails from "../ProductDetails/ProductDetails.svelte"
+  import Order from "../Order/Order.svelte"
 
   let isLogin: boolean = false
   const routes = {
     '/': Home,
     '/product/:id': ProductDetails,
+    '/order': Order,
     '/login': isLogin ? Home : Login,
     '*': Home,
   }
