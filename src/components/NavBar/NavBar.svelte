@@ -9,6 +9,11 @@
     isLogin.subscribe(results => loginChecked = results)
   })
 
+  let isShowLogout: boolean = false
+
+  function showLogout() {
+    isShowLogout = !isShowLogout
+  }
 </script>
 
 <main>
@@ -54,7 +59,7 @@
               </div>
             </div>
           </div>
-          <div id="userDetails">
+          <div id="userDetails" on:click={() => showLogout()}>
             <div id="userText">
               PERTH
             </div>
@@ -62,6 +67,11 @@
               <i class="fas fa-user" aria-hidden="true"></i>
             </div>
           </div>
+          {#if isShowLogout}
+          <div id="logOut">
+            <label for="">ออกจากระบบ</label>
+          </div>
+          {/if}
         </div>
       {/if}
     </div>

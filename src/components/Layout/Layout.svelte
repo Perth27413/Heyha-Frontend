@@ -5,6 +5,7 @@
   import Login from '../Login/Login.svelte'
   import Footer from "../Footer/Footer.svelte"
   import ProductDetails from "../ProductDetails/ProductDetails.svelte"
+  import Order from "../Order/Order.svelte"
   import Register from "../Register/Register.svelte"
   import { isLogin, getIsLogin } from '../../store/user'
   import { afterUpdate, beforeUpdate, onMount } from 'svelte';
