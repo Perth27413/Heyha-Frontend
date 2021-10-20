@@ -12,19 +12,19 @@ export async function get(path: string) {
 }
 
 export async function post(path: string, data: any) {
-  try {
-    const response = await fetch(`${baseUrl}${path}`, 
-    {
-      method: "post",
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    })
+  const response = await fetch(`${baseUrl}${path}`, 
+  {
+    method: "post",
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+  if (response.ok) {
     let responseJson = await response.json()
     return responseJson
-  } catch (error) {
-    console.error(error.message)
+  } else {
+    throw new Error('เกิดข้อผิดพลาดบางอย่าง')
   }
 }

@@ -1,13 +1,24 @@
 <script lang="ts">
   import UserLoginRequestModel from '../../model/users/UserLoginRequestModel'
   import UserModel from '../../model/users/UserModel';
-  import { postLogin } from '../../store/user'
+  import { post } from '../../store/api'
+  import { alertSuccess, alertError } from '../../store/notify'
 
   let loginRequest: UserLoginRequestModel = new UserLoginRequestModel
 
   async function onLoginButtonClick() {
-    const userDetail: UserModel = await postLogin(loginRequest)
-    console.log(userDetail)
+    postLogin()
+  }
+
+  async function postLogin(): Promise<void> {
+    try {
+      const userDetail: UserModel = await post('/user/login', loginRequest)
+      if (userDetail.id) {
+        await alertSuccess('เข้าสู่ระบบสำเร็จ')
+      }
+    } catch (error) {
+      alertError(error)
+    }
   }
 </script>
 
