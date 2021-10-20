@@ -1,6 +1,14 @@
 <script lang="ts">
   import { push } from 'svelte-spa-router'
-  let isLogin: boolean = false
+  import { isLogin, getIsLogin } from '../../store/user'
+  import { onMount } from 'svelte';
+
+  let loginChecked: boolean = getIsLogin()
+
+  onMount(() => {
+    isLogin.subscribe(results => loginChecked = results)
+  })
+
 </script>
 
 <main>
@@ -14,7 +22,7 @@
           เฮฮาหมูกระทะ
         </div>
       </div>
-      {#if !isLogin}
+      {#if !loginChecked}
         <div id="loginRegisBox">
           <button class="login-regis-btn" on:click={() => push('/register')}>สมัครสมาชิก</button>
           <button class="login-regis-btn" on:click={() => push('/login')}>เข้าสู่ระบบ</button>

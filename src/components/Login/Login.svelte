@@ -5,6 +5,7 @@
   import { alertSuccess, alertError, alertWarning } from '../../store/notify'
   import md5 from 'md5'
   import { push } from 'svelte-spa-router'
+  import { setLogin } from '../../store/user'
 
   let loginRequest: UserLoginRequestModel = new UserLoginRequestModel
   let isLoading: boolean = false
@@ -24,6 +25,7 @@
       const newRequest: UserLoginRequestModel = mapAndConvertRequestPasswordToMD5()
       const userDetail: UserModel = await post('/user/login', newRequest)
       if (userDetail.id) {
+        setLogin(userDetail)
         await alertSuccess('เข้าสู่ระบบสำเร็จ')
         push('/')
       }

@@ -6,15 +6,34 @@
   import Footer from "../Footer/Footer.svelte"
   import ProductDetails from "../ProductDetails/ProductDetails.svelte"
   import Register from "../Register/Register.svelte"
+  import { isLogin, getIsLogin } from '../../store/user'
+  import { afterUpdate, beforeUpdate, onMount } from 'svelte';
 
-  let isLogin: boolean = false
-  const routes = {
-    '/': Home,
-    '/product/:id': ProductDetails,
-    '/login': isLogin ? Home : Login,
-    '/register': isLogin ? Home : Register,
-    '*': Home,
+  let loginChecked: boolean = getIsLogin()
+  let routes = {
+      '/': Home,
+      '/product/:id': ProductDetails,
+      '/login': loginChecked ? Home : Login,
+      '/register': loginChecked ? Home : Register,
+      '*': Home,
+    }
+
+  onMount(() => {
+    isLogin.subscribe(results => loginChecked = results)
+  })
+  
+  function setRoutes(): void {
+    let newRoutes = {
+      '/': Home,
+      '/product/:id': ProductDetails,
+      '/login': loginChecked ? Home : Login,
+      '/register': loginChecked ? Home : Register,
+      '*': Home,
+    }
+    routes = newRoutes
   }
+
+  
 </script>
 
 <main>
