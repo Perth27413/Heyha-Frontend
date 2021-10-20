@@ -1,7 +1,8 @@
 <script lang="ts">
   import { push } from 'svelte-spa-router'
-  import { isLogin, getIsLogin } from '../../store/user'
+  import { isLogin, getIsLogin, setLogout } from '../../store/user'
   import { onMount } from 'svelte';
+import { alertSuccess } from '../../store/notify';
 
   let loginChecked: boolean = getIsLogin()
 
@@ -13,6 +14,12 @@
 
   function showLogout() {
     isShowLogout = !isShowLogout
+  }
+
+  async function logout(): Promise<void> {
+    setLogout()
+    await alertSuccess('ออกจากระบบสำเร็จ')
+    push('/')
   }
 </script>
 
@@ -68,7 +75,7 @@
             </div>
           </div>
           {#if isShowLogout}
-          <div id="logOut">
+          <div id="logOut" on:click={logout}>
             <label for="">ออกจากระบบ</label>
           </div>
           {/if}
