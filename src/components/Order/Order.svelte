@@ -1,5 +1,9 @@
 <script lang="ts">
+  import { afterUpdate } from 'svelte';
+  import { navigate } from "svelte-routing"
   import Select from 'svelte-select'
+
+  export let isLogin
   type order = {
     isActive: boolean
     image: string
@@ -26,6 +30,16 @@
       vat: 200
     }
   ]
+
+  afterUpdate(() => {
+    checkIsLogin()
+  })
+
+  function checkIsLogin(): void {
+    if (!isLogin) {
+      navigate('/')
+    }
+  }
 </script>
 
 <main id="orderMain">

@@ -4,6 +4,7 @@
 
   export let Component
   export let params
+  export let isLogin
 
 </script>
 
@@ -13,7 +14,7 @@
       <NavBar/>
     </div>
     <div id="bodyBox">
-      <svelte:component this={Component} params={params}/>
+      <svelte:component this={Component} params={params} isLogin={isLogin}/>
     </div>
     <div id="footerBox">
       <Footer/>

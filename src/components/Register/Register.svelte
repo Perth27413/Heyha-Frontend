@@ -1,13 +1,25 @@
 <script lang="ts">
   import md5 from 'md5'
+import { afterUpdate } from 'svelte';
   import { navigate } from "svelte-routing"
   import UserModel from '../../model/users/UserModel';
   import UserRegisterRequestModel from '../../model/users/UserRegisterRequestModel';
   import { post } from '../../store/api'
   import { alertSuccess, alertWarning, alertError } from '../../store/notify'
 
+  export let isLogin
   let registerRequest: UserRegisterRequestModel = new UserRegisterRequestModel
   let isLoading: boolean = false
+
+  afterUpdate(() => {
+    backToHomeIfNotLogin()
+  })
+
+  function backToHomeIfNotLogin(): void {
+    if (isLogin) {
+      navigate('/')
+    }
+  }
 
   async function onRegisterButtonClick(): Promise<void> {
     if (validateInputRequest() && validateEmail()) {

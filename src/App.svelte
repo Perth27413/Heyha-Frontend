@@ -6,12 +6,14 @@
 	import Register from './components/Register/Register.svelte';
 	import ProductDetails from './components/ProductDetails/ProductDetails.svelte';
 	import { getIsLogin } from './store/user';
+	import Order from './components/Order/Order.svelte';
 
 	function animateTitle(): void {
 		document.title = document.title.substring(1)+document.title.substring(0,1);
     setTimeout(animateTitle, 150);
 	}
 	animateTitle()
+	
 </script>
 
 <main>
@@ -19,10 +21,9 @@
 		<div>
 			<Route path="/"><svelte:component this={Layout} Component={Home}/></Route>
 			<Route path="/product/:id" let:params><svelte:component this={Layout} Component={ProductDetails} params={params}/></Route>
-			{#if !getIsLogin()}
-				<Route path="/login"><svelte:component this={Layout} Component={Login}/></Route>
-				<Route path="/register"><svelte:component this={Layout} Component={Register}/></Route>
-			{/if}
+			<Route path="/login"><svelte:component this={Layout} Component={Login} isLogin={getIsLogin()}/></Route>
+			<Route path="/register"><svelte:component this={Layout} Component={Register} isLogin={getIsLogin()}/></Route>
+			<Route path="/user/:id/order" let:params><svelte:component this={Layout} Component={Order} params={params} isLogin={getIsLogin()}/></Route>
 			<Route path="*"><svelte:component this={Layout} Component={Home}/></Route>
 		</div>
 	</Router>

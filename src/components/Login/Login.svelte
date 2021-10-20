@@ -6,9 +6,21 @@
   import { alertSuccess, alertError, alertWarning } from '../../store/notify'
   import md5 from 'md5'
   import { setLogin } from '../../store/user'
+  import { afterUpdate } from 'svelte';
 
+  export let isLogin
   let loginRequest: UserLoginRequestModel = new UserLoginRequestModel
   let isLoading: boolean = false
+  
+  afterUpdate(() => {
+    backToHomeIfNotLogin()
+  })
+
+  function backToHomeIfNotLogin(): void {
+    if (isLogin) {
+      navigate('/')
+    }
+  }
   
   async function onLoginButtonClick() {
     if (validateInputRequest() && !isLoading) {
