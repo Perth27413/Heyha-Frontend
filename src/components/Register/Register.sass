@@ -7,24 +7,28 @@
   height: calc(100vh - (#{$navHeight} + #{$footerHeight}))
   #regisBox
     border-radius: 5px
-    font-size: 2rem
-    padding: 30px 15px 15px
+    font-size: 24px
+    padding: 30px 20px 15px 20px
     background-color: #fff
-    width: 350px
+    width: 300px
     box-shadow: 0 4px 4px #0000003F
     display: flex
     flex-flow: column wrap
     align-items: center
+    #regisHeaderText
+      margin-bottom: 20px
     .input-box
-      font-size: 1rem
+      font-size: 14px
       height: 40px
       width: 100%
       position: relative
-      margin-bottom: 25px
+      margin-bottom: 15px
       .input
         height: 40px
         width: 100%
         padding: 0 10px 0 40px
+        outline: none
+        border-radius: 5px
       .input-icon
         top: 50%
         transform: translateY(-50%)
@@ -40,6 +44,16 @@
       display: flex
       justify-content: center
       align-items: center
+      outline: none
+      border: none
+      cursor: pointer
+      &:hover
+        background-color: #ffa600
+      &.is-loading
+        background-color: #FFB800
+        cursor: wait
+      .icon-loading
+        font-size: 24px
     .box-text
       display: flex
       justify-content: flex-start
@@ -50,3 +64,6 @@
         font-size: 13px
         color: #FFB800
         margin-left: 5px
+        &:hover
+          color: #ff7300
+          cursor: pointer

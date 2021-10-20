@@ -1,22 +1,11 @@
 <script lang="ts">
-  import Router from 'svelte-spa-router'
   import NavBar from "../NavBar/NavBar.svelte"
-  import Home from "../Home/Home.svelte"
-  import Login from '../Login/Login.svelte'
   import Footer from "../Footer/Footer.svelte"
-  import ProductDetails from "../ProductDetails/ProductDetails.svelte"
-  import Order from "../Order/Order.svelte"
-  import Register from "../Register/Register.svelte"
 
-  let isLogin: boolean = false
-  const routes = {
-    '/': Home,
-    '/product/:id': ProductDetails,
-    '/order': Order,
-    '/login': isLogin ? Home : Login,
-    '/register': isLogin ? Home : Register,
-    '*': Home,
-  }
+  export let Component
+  export let params
+  export let isLogin
+
 </script>
 
 <main>
@@ -25,7 +14,7 @@
       <NavBar/>
     </div>
     <div id="bodyBox">
-      <Router {routes}/>
+      <svelte:component this={Component} params={params} isLogin={isLogin}/>
     </div>
     <div id="footerBox">
       <Footer/>
