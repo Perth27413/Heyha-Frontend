@@ -76,7 +76,7 @@
         </div>
         <hr class="product-line">
         <div class="product-detail">
-          <button class="product-detail-button" on:click={() => navigate('/product/1')}>รายละเอียดสินค้า</button>
+          <button class="product-detail-button" on:click={() => navigate(`/product/${product.id}`)}>รายละเอียดสินค้า</button>
         </div>
       </div>  
     {/each} 

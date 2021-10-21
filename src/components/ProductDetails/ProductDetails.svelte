@@ -1,17 +1,38 @@
 <script lang="ts">
+  import  ProductModel  from "../../model/product/ProductModel"
+  import { get } from "../../store/api";
+  import { onMount } from 'svelte'
   export let params = {}
-  console.log(params)
+  let values = Object.values(params).toString()
+  let keys = Object.keys(params).toString()
+  let product: ProductModel = new ProductModel
+
+  onMount(async() => {
+    getProductById()
+  })
+
+  async function getProductById(): Promise<void> {
+    try {
+      const response: ProductModel = await get(`/product?${keys}=${values}`)
+      product = response 
+      console.log(product);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 </script>
 
 <main id="productDetailMain">
   <div id="productDetailBox">
     <div class="product-picture">
-      <img class="product-image" src="https://img.wongnai.com/p/984x0/2019/05/26/3dc36fd7adf042bbadd4475f622964b1.jpg" alt="">
+      <img class="product-image" src={product.imageUrl} alt={product.name}>
     </div>
     <div class="product-detail">
       <div class="detail-top">
-        <div class="product-title">สันคอหมูสไลด์</div>
+        <div class="product-title">{product.name}</div>
+        {#if product.recommend}
         <div class="recommend-badge">แนะนำ</div>
+        {/if}
       </div>
       <hr class="line"/>
       <div class="detail-mid">
@@ -25,7 +46,7 @@
         </div>
         <div class="mid-row">
           <div class="product-total">
-            <div class="total-text">฿150</div>
+            <div class="total-text">{`฿${product.price}`}</div>
           </div>
         </div>
         <div class="add-order">
@@ -38,7 +59,7 @@
       </div>
       <div class="product-category">
         <div class="category-text">หมวดหมู่:</div>
-        <div class="category-text">เนื้อหมู</div>
+        <div class="category-text">{product.category}</div>
       </div>
     </div>
   </div>
