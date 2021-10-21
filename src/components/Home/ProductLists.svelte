@@ -3,10 +3,25 @@
   import { navigate } from "svelte-routing"
   import Select from 'svelte-select'
   import OrderModel from '../../model/OrderModel'
+  import ProductsRequestModel from '../../model/product/ProductRequestModel';
+  import ProductsResponseModel from '../../model/product/ProductsResponseModel';
   import SelectModel from '../../model/SelectModel'
+  import { post } from '../../store/api';
+  import Paginate from '../Paginate/Paginate.svelte'
 
-  let orderLists: Array<OrderModel> = [{id: 1, name: 'วันที่เพิ่มล่าสุด'}, {id: 2, name: 'ราคาต่ำสุด'}]
+  let productLists: ProductsResponseModel = new ProductsResponseModel
+  let orderLists: Array<OrderModel> = [{id: 1, name: 'วันที่เพิ่มล่าสุด'}, {id: 2, name: 'ราคาต่ำสุด'}, {id: 3, name: 'ราคาสูงสุด'}]
   let orderSelectLists: Array<SelectModel> = []
+  let page: number = 1
+  let productRequest: ProductsRequestModel = {
+        elementPerPage: 15,
+        sortBy: 'ASC',
+        page: 1
+  }
+
+  onMount(async() => {
+    getProductLists(1)
+  })
 
   function convertOrderListsToOrderSelectLists(): Array<SelectModel> {
     orderLists.forEach((item: OrderModel) => {
@@ -14,6 +29,21 @@
       orderSelectLists.push(orderSelect)
     })
     return orderSelectLists
+  }
+
+  async function getProductLists(pageNumber: number): Promise<void> {
+    try {
+      productLists = new ProductsResponseModel
+      productRequest.page = pageNumber
+      const response: ProductsResponseModel = await post('/products', productRequest)
+      productLists = response
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  function handleSelect(event) {
+    console.log(event.detail)
   }
 </script>
 
@@ -24,22 +54,25 @@
         การเรียงลำดับสินค้า :
       </div>
       <div id="orderBox">
-        <Select id="filterSelect" placeholder="วันที่เพิ่มล่าสุด"
+        <Select id="filterSelect"
           isClearable={false} 
           items={convertOrderListsToOrderSelectLists()}
           value={orderSelectLists[0]}
           isSearchable={false}
           showChevron={true}
+          on:select={handleSelect}
         />
       </div>
     </div>
-    {#each Array(15) as _, i}
+    {#each productLists.products as product}
       <div class="grid-item">
-        <div class="product-tag">แนะนำ</div>
-        <img class="product-image" src="https://img.wongnai.com/p/984x0/2019/05/26/3dc36fd7adf042bbadd4475f622964b1.jpg" alt="">
-        <div class="product-name">สันคอหมูสไลด์</div>
+        {#if product.recommend}
+          <div class="product-tag">แนะนำ</div>
+        {/if}
+        <img class="product-image" src={product.imageUrl} alt="">
+        <div class="product-name">{product.name}</div>
         <div class="product-price-box">
-          <div class="product-price">200 บาท</div>
+          <div class="product-price">{product.price} บาท</div>
         </div>
         <hr class="product-line">
         <div class="product-detail">
@@ -48,6 +81,7 @@
       </div>  
     {/each} 
   </div>
+  <Paginate isFirst={productLists.isFirst} isLast={productLists.isLast} totalPage={productLists.totalPage} currentPage={productLists.page} onSelectPage={value => getProductLists(value)}/>
 </main>
 
 <style lang="scss">
