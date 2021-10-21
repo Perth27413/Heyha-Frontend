@@ -4,9 +4,11 @@
   import Select from 'svelte-select'
   import OrderModel from '../../model/OrderModel'
   import SelectModel from '../../model/SelectModel'
+  import Paginate from '../Paginate/Paginate.svelte'
 
   let orderLists: Array<OrderModel> = [{id: 1, name: 'วันที่เพิ่มล่าสุด'}, {id: 2, name: 'ราคาต่ำสุด'}]
   let orderSelectLists: Array<SelectModel> = []
+  let page: number = 1
 
   function convertOrderListsToOrderSelectLists(): Array<SelectModel> {
     orderLists.forEach((item: OrderModel) => {
@@ -48,6 +50,7 @@
       </div>  
     {/each} 
   </div>
+  <Paginate isFirst={false} isLast={true} totalPage={10} currentPage={10} onSelectPage={value => console.log(value)}/>
 </main>
 
 <style lang="scss">
