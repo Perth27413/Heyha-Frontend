@@ -3,20 +3,26 @@
   import { navigate } from "svelte-routing"
   import Select from 'svelte-select'
   import OrderModel from '../../model/OrderModel'
-  import ProductsRequestModel from '../../model/product/ProductRequestModel';
-  import ProductsResponseModel from '../../model/product/ProductsResponseModel';
+  import ProductsRequestModel from '../../model/product/ProductRequestModel'
+  import ProductsResponseModel from '../../model/product/ProductsResponseModel'
   import SelectModel from '../../model/SelectModel'
   import { post } from '../../store/api';
   import Paginate from '../Paginate/Paginate.svelte'
+  import Filter from './Filter.svelte'
 
   let productLists: ProductsResponseModel = new ProductsResponseModel
   let orderLists: Array<OrderModel> = [{id: 1, name: 'วันที่เพิ่มล่าสุด'}, {id: 2, name: 'ราคาต่ำสุด'}, {id: 3, name: 'ราคาสูงสุด'}]
   let orderSelectLists: Array<SelectModel> = []
   let page: number = 1
+  let categoryId: number = 1
+  let orderBy: string = 'ASC'
+  let sortBy: string = 'create_date'
   let productRequest: ProductsRequestModel = {
         elementPerPage: 15,
-        sortBy: 'ASC',
-        page: 1
+        page: 1,
+        categoryId: 1,
+        sortBy: '',
+        orderBy: 'ASC'
   }
 
   onMount(async() => {
@@ -35,6 +41,9 @@
     try {
       productLists = new ProductsResponseModel
       productRequest.page = pageNumber
+      productRequest.orderBy = orderBy
+      productRequest.sortBy = sortBy
+      productRequest.categoryId = categoryId
       const response: ProductsResponseModel = await post('/products', productRequest)
       productLists = response
     } catch (error) {
@@ -45,9 +54,14 @@
   function handleSelect(event) {
     console.log(event.detail)
   }
+
+  function onFilterSelectHandle(id: number): void {
+    categoryId = id
+  }
 </script>
 
 <main id="productListsMain">
+  <div id="filterBox"><Filter onSelectCategory={categoryId => onFilterSelectHandle(categoryId)}/></div>
   <div id="productLists">
     <div id="controlBar">
       <div id="orderText">

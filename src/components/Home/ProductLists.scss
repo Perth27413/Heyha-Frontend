@@ -1,6 +1,11 @@
 #productListsMain {
   width: 70%;
   max-width: 1200px;
+  #filterBox {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
   #productLists {
     margin: 5px 0 35px 0;
     display: grid;
