@@ -44,7 +44,7 @@
         <div class="mid-row">
           <div class="product-amount">จำนวน :</div>
           <div class="amount">
-            รอเพิร์ททำ....
+            <Steppers />
           </div>
         </div>
         <div class="mid-row">
