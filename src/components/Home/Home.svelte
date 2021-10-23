@@ -16,7 +16,6 @@
 <main>
   <div id="home">
     <Promotion/>
-    <Filter/>
     <ProductLists/>
   </div>
 </main>
