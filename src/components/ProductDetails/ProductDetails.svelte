@@ -2,6 +2,7 @@
   import  ProductModel  from "../../model/product/ProductModel"
   import { get } from "../../store/api";
   import { onMount } from 'svelte'
+  import Steppers from "../Steppers/Steppers.svelte"
   export let params = {}
   let values = Object.values(params).toString()
   let keys = Object.keys(params).toString()
@@ -42,7 +43,9 @@
         </div>
         <div class="mid-row">
           <div class="product-amount">จำนวน :</div>
-          <div class="amount">รอเพิร์ททำ....</div>
+          <div class="amount">
+            รอเพิร์ททำ....
+          </div>
         </div>
         <div class="mid-row">
           <div class="product-total">
