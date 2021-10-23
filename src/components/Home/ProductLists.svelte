@@ -51,12 +51,33 @@
     }
   }
 
-  function handleSelect(event) {
-    console.log(event.detail)
+  async function handleSelect(event): Promise<void> {
+    setSortBy(event.detail.value)
+    await getProductLists(1)
   }
 
-  function onFilterSelectHandle(id: number): void {
+  async function onFilterSelectHandle(id: number): Promise<void> {
     categoryId = id
+    await getProductLists(1)
+  }
+
+  function setSortBy(orderId: number): void {
+    switch (orderId) {
+      case 1:
+        sortBy = 'create_date'
+        orderBy = 'ASC'
+        break
+      case 2:
+        sortBy = 'price'
+        orderBy = 'ASC'
+        break
+      case 3:
+        sortBy = 'price'
+        orderBy = 'DESC'
+        break
+      default:
+        break
+    }
   }
 </script>
 
