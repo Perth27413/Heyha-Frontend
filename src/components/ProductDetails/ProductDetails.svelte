@@ -7,9 +7,10 @@
   let values = Object.values(params).toString()
   let keys = Object.keys(params).toString()
   let product: ProductModel = new ProductModel
+  let count: number = 1
 
   onMount(async() => {
-    getProductById()
+    getProductById() 
   })
 
   async function getProductById(): Promise<void> {
@@ -21,6 +22,12 @@
       console.log(error);
     }
   }
+
+  function calculatePrices(props, price) {     
+    let count = props*price
+    return count
+  }
+
 </script>
 
 <main id="productDetailMain">
@@ -44,12 +51,12 @@
         <div class="mid-row">
           <div class="product-amount">จำนวน :</div>
           <div class="amount">
-            <Steppers />
+            <Steppers onCalculate={count => console.log(calculatePrices(count, product.price))} />
           </div>
         </div>
         <div class="mid-row">
           <div class="product-total">
-            <div class="total-text">{`฿${product.price}`}</div>
+            <div class="total-text">{`฿${calculatePrices(count, product.price)}`}</div>
           </div>
         </div>
         <div class="add-order">
