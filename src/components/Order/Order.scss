@@ -1,147 +1,181 @@
 #orderMain {
   width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 30px 0 0;
   #orderBox {
+    $bill-width: 380px;
     width: 100%;
+    max-width: 1200px;
     display: flex;
-    align-items: center;
-    flex-flow: column wrap;
-    .order-top {
-      display: flex;
-      justify-content: space-between;
-      $order-height: 40px;
-      height: $order-height;
-      max-width: 1200px;
-      width: calc(100% - 340px);
-      background-color: #fff;
-      box-shadow: 0px 3px 8px #b1b1b1;
-      margin: 20px 0 10px 0;
-      .grid {
-        display: grid;
-        width: 100%;
-        grid-template-columns: 5% 20% 27% 14% 14% 14% 6%;
-        padding-top: 10px;
-        text-align: center;
-        .input-checkbox {
-          width: 25px;
-          height: 25px;
-          display: flex;
-          box-shadow: none;
-          align-self: center;
-          justify-self: center
-        }
-      }
-    }
-    .list-orders {
-      background-color: #fff;
-      max-width: 1200px;
-      width: calc(100% - 340px);
-      height: auto;
-      margin: 20px 0 0 0;
-      box-shadow: 0px 3px 8px #b1b1b1;
-      padding: 10px 0 20px 0;
-      .menu-list {
-        display: grid;
-        width: 100%;
-        grid-template-columns: 5% 20% 27% 14% 14% 14% 6%;
-        margin: 20px 0 0 0;
-        .input-checkbox {
-          width: 25px;
-          height: 25px;
-          display: flex;
-          box-shadow: none;
-          align-self: center;
-          justify-self: center
-        }
-        .menu-image {
-          width: 200px;
-          height: 170px;
-        }
-        .text-label {
-          font-size: 20px;
-          font-weight: 400;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-        .icons {
-          font-size: 18px;
-          color: #ffb800;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-      }
-    }
-    .payment-main {
-      max-width: 1200px;
-      width: calc(100% - 340px);
-      display: flex;
-      justify-content: flex-end;
-      margin-top: 10px;
-      .payment-methods {
-        background-color: #fff;
-        max-width: 400px;
-        width: calc(100% - 340px);
-        padding: 10px;
-        .payment-box {
-          display: flex;
-          justify-content: space-around;
-          #paymentText {
-            font-size: 18px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-          }
-          .select-method {
-            width: 60%;
-          }
-        }
-      }
-    }
-    .order-bottom {
-      display: flex;
-      flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    #productBox {
+      width: calc(100% - #{$bill-width});
+      min-width: $bill-width;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 210px));
+      grid-gap: 15px;
       justify-content: center;
-      $order-height: 40px;
-      height: $order-height;
-      max-width: 1200px;
-      width: calc(100% - 340px);
-      background-color: #fff;
-      box-shadow: 0px 3px 8px #b1b1b1;
-      margin-top: 10px;
-      .order-bottom-box {
-        display: grid;
-        grid-template-columns: 5% 15% 40% 20% 20%;
-        .input-checkbox {
-          width: 25px;
-          height: 25px;
-          display: flex;
-          align-self: center;
-          justify-self: center;
-          margin-top: 4px;
+      padding-bottom: 30px;
+      @media screen and (max-width: 760px) {
+        width: 95%;
+      }
+      .product-order-item {
+        background-color: #ffffff;
+        border-radius: 5px;
+        box-shadow: 3px 2px 8px #e2e2e2;
+        border: 2px solid #ffffff;
+        .product-image {
+          width: 100%;
+          height: 160px;
+          box-shadow: 0 4px 2px -2px rgb(196, 196, 196);
         }
-        .all-item {
+        .product-name {
+          color: #000000;
+          text-align: center;
+          margin: 5px 10px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          width: calc(100% - 20px);
+          white-space: nowrap;
+        }
+        .product-count-box {
+          display: flex;
+          justify-content: center;
+          margin: 0 0 5px;
+        }
+        .each-product-price-box, .total-product-price-box {
           display: flex;
           justify-content: center;
           align-items: center;
+          margin: 0 10px 5px;
+          border: 1px solid #FFB800;
+          border-radius: 5px;
+          height: 30px;
+          font-size: 12px;
+          color: #5E5E5E;
         }
-        .btn {
+        .total-product-price-box {
+          background-color: #FFB800;
+          color: #ffffff;
+          font-weight: 600;
+          font-size: 14px;
+        }
+        .line {
+          margin: 0 10px;
+          outline: none;
+          border: 1px solid #b8b8b8;
+          background-color: #b8b8b8;
+          margin: 10px 10px;
+        }
+        .button-delete-box {
           display: flex;
           justify-content: center;
-          .button-buy {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 150px;
-            height: 30px;
-            color: #fff;
-            background-color: #ffb800;
-            border-radius: 5px;
-            margin: 0 10px;
+          padding: 0 10px;
+          .delete-button {
+            width: 100%;
+            outline: none;
             border: none;
+            color: #ffffff;
+            background-color: #DC3545;
+            border-radius: 5px;
             &:hover {
               cursor: pointer;
-              background-color: #fad883;
+              background-color: #c22333;
+            }
+          }
+        }
+      }
+    }
+    #billBox {
+      width: calc(#{$bill-width - 20px});
+      margin-right: 20px;
+      #bill {
+        background-color: #ffffff;
+        padding: 20px;
+        box-shadow: 3px 2px 8px #ececec;
+        #billHeaderText {
+          font-size: 24px;
+          font-weight: 500;
+          line-height: 24px;
+        }
+        .line {
+          outline: none;
+          border: 1px solid #FFB800;
+          background-color: #FFB800;
+          margin: 10px 0;
+        }
+        #productListBox {
+          height: 220px;
+          overflow-y: overlay;
+          margin-bottom: 10px;
+          .list-item-box {
+            display: flex;
+            .item-details {
+              width: 70%;
+              margin: 0 0 0 15px;
+            }
+            .item-prices {
+              width: 30%;
+              display: flex;
+              justify-content: flex-end;
+              margin: 0 15px 0 0;
+            }
+          }
+        }
+        #totalPriceBox {
+          display: flex;
+          background-color: #FFF3D6;
+          font-size: 18px;
+          font-weight: bold;
+          padding: 5px;
+          margin-bottom: 10px;
+          #totalText {
+            width: 50%;
+          }
+          #totalPriceText {
+            width: 50%;
+            display: flex;
+            justify-content: flex-end;
+          }
+        }
+        #paymentBox {
+          display: flex;
+          align-items: center;
+          margin-bottom: 10px;
+          #paymentText {
+            width: 50%;
+          }
+          #paymentSelectBox {
+            width: 50%;
+            text-align: end;
+            font-size: 14px;
+            --border: 1px solid #bebebe;
+            --borderFocusColor: #7B7B7B;
+            --borderHoverColor: #7B7B7B;
+            --borderRadius: 5px;
+            --inputPadding: 3px 35px 0 10px;
+            --indicatorHeight: 20px;
+            --height: 35px;
+            --indicatorTop: 7px;
+          }
+        }
+        #confirmButtonBox {
+          display: flex;
+          justify-content: center;
+          #confirmButton {
+            width: 100%;
+            outline: none;
+            border: none;
+            background-color: #FFB800;
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 0;
+            &:hover {
+              background-color: #ff9900;
+              cursor: pointer;
             }
           }
         }

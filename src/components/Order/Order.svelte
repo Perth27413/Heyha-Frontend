@@ -2,6 +2,7 @@
   import { afterUpdate } from 'svelte';
   import { navigate } from "svelte-routing"
   import Select from 'svelte-select'
+import Steppers from '../Steppers/Steppers.svelte';
 
   export let isLogin
   type order = {
@@ -44,77 +45,52 @@
 
 <main id="orderMain">
   <div id="orderBox">
-    <div class="order-top">
-      <div class="grid">
-        <div class="input-checkbox">
-          <input class="input-checkbox" type="checkbox">
+    <div id="productBox">
+      {#each Array(12) as _, i}
+        <div class="product-order-item">
+          <img class="product-image" src="https://img.wongnai.com/p/984x0/2019/05/26/3dc36fd7adf042bbadd4475f622964b1.jpg" alt="">
+          <div class="product-name">สันคอหมูสไลด์</div>
+          <div class="product-count-box">
+            <Steppers onCalculate={count => console.log(count)}/>
+          </div>
+          <div class="each-product-price-box">ราคาต่อชิ้น : 150 บาท</div>
+          <div class="total-product-price-box">ราคารวม : 500 บาท</div>
+          <hr class="line">
+          <div class="button-delete-box">
+            <button class="delete-button">ลบรายการสินค้า</button>
+          </div>
         </div>
-        <label for="" class="label-text">สินค้า</label>
-        <div class="blank"></div>
-        <label class="text" for="">ราคาต่อชิ้น</label>
-        <label class="text" for="">จำนวน</label>
-        <label class="text" for="">ราคารวม</label>
-        <div class="blank"></div>
-      </div>
-    </div>
-    <div class="list-orders">
-      {#each orderList as order}
-      <div class="menu-list">
-        <div class="input-checkbox">
-          <input class="input-checkbox" type="checkbox" checked={order.isActive}>
-        </div>
-        <div class="menu-image">
-          <img class="menu-image" src={order.image} alt="">
-        </div>
-        <div class="text-label">
-          <label for="">{order.name}</label>
-        </div>
-        <div class="text-label">
-          <label for="">{order.amount}</label>
-        </div>
-        <div class="text-label">
-          <label for="">รอเพิร์ททำ</label>
-        </div>
-        <div class="text-label">
-          <label for="">{order.vat}</label>
-        </div>
-        <div class="icons">
-          <i class="fas fa-trash"></i>
-        </div>
-      </div>
       {/each}
     </div>
-    <div class="payment-main">
-      <div class="payment-methods">
-        <div class="payment-box">
-          <label for="" id="paymentText">ช่องทางการชำระ :</label>
-          <div class="select-method">
-            <Select 
+    <div id="billBox">
+      <div id="bill">
+        <label for="" id="billHeaderText">รายการสินค้า</label>
+        <hr class="line">
+        <div id="productListBox">
+          {#each Array(20) as _, i}
+            <div class="list-item-box">
+              <div class="item-details">test x1</div>
+              <div class="item-prices">99 บาท</div>
+            </div>
+          {/each}
+        </div>
+        <hr class="line">
+        <div id="totalPriceBox">
+          <div id="totalText">ราคารวมทั้งหมด</div>
+          <div id="totalPriceText">9999 บาท</div>
+        </div>
+        <div id="paymentBox">
+          <div id="paymentText">ช่องทางการชำระเงิน</div>
+          <div id="paymentSelectBox">
+            <Select
               id="paymentSelect"
-              isClearable={false}
               isSearchable={false}
               showChevron={true}
             />
           </div>
         </div>
-      </div>
-    </div>
-    <div class="order-bottom">
-      <div class="order-bottom-box">
-        <div class="input-checkbox">
-          <input class="input-checkbox" type="checkbox">
-        </div>
-        <div class="all-item">
-          <label for="">เลือกทั้งหมด(0)</label>
-        </div>
-        <div class="all-item">
-          <label for="">ลบ</label>
-        </div>
-        <div class="all-item">
-          <label for="">รวม 0 รายการ</label>
-        </div>
-        <div class="btn">
-          <button class="button-buy">สั่งสินค้า</button>
+        <div id="confirmButtonBox">
+          <button id="confirmButton">ยืนยันคำสั่งซื้อ</button>
         </div>
       </div>
     </div>
