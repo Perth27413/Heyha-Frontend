@@ -1,36 +1,14 @@
 <script lang="ts">
-  import { afterUpdate } from 'svelte';
+  import { afterUpdate } from 'svelte'
   import { navigate } from "svelte-routing"
   import Select from 'svelte-select'
-import Steppers from '../Steppers/Steppers.svelte';
+  import Loading from '../Loading/Loading.svelte'
+  import Steppers from '../Steppers/Steppers.svelte'
 
   export let isLogin
-  type order = {
-    isActive: boolean
-    image: string
-    name: string
-    amount: number
-    total: string
-    vat: number
-  }
-  let orderList: order [] = [
-    {
-      isActive: true,
-      image: "https://img.wongnai.com/p/984x0/2019/05/26/3dc36fd7adf042bbadd4475f622964b1.jpg",
-      name: 'หมูสันคอสไลด์',
-      amount: 180,
-      total: "รอ....",
-      vat: 180
-    },
-    {
-      isActive: true,
-      image: "https://img.wongnai.com/p/984x0/2019/05/26/3dc36fd7adf042bbadd4475f622964b1.jpg",
-      name: 'หมูสันคอสไลด์',
-      amount: 200,
-      total: "รอ....",
-      vat: 200
-    }
-  ]
+  
+
+  let isLoading: boolean = false
 
   afterUpdate(() => {
     checkIsLogin()
@@ -44,6 +22,7 @@ import Steppers from '../Steppers/Steppers.svelte';
 </script>
 
 <main id="orderMain">
+  {#if isLoading}<Loading/>{/if}
   <div id="orderBox">
     <div id="productBox">
       {#each Array(12) as _, i}
@@ -57,7 +36,7 @@ import Steppers from '../Steppers/Steppers.svelte';
           <div class="total-product-price-box">ราคารวม : 500 บาท</div>
           <hr class="line">
           <div class="button-delete-box">
-            <button class="delete-button">ลบรายการสินค้า</button>
+            <button class="delete-button"><i class="fas fa-trash" aria-hidden="true"></i> ลบรายการสินค้า</button>
           </div>
         </div>
       {/each}
@@ -80,12 +59,13 @@ import Steppers from '../Steppers/Steppers.svelte';
           <div id="totalPriceText">9999 บาท</div>
         </div>
         <div id="paymentBox">
-          <div id="paymentText">ช่องทางการชำระเงิน</div>
+          <div id="paymentText">การชำระเงิน</div>
           <div id="paymentSelectBox">
             <Select
               id="paymentSelect"
               isSearchable={false}
               showChevron={true}
+              placeholder="ช่องทางการชำระเงิน"
             />
           </div>
         </div>

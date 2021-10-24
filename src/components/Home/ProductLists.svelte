@@ -7,6 +7,7 @@
   import ProductsResponseModel from '../../model/product/ProductsResponseModel'
   import SelectModel from '../../model/SelectModel'
   import { post } from '../../store/api';
+  import Loading from '../Loading/Loading.svelte'
   import Paginate from '../Paginate/Paginate.svelte'
   import Filter from './Filter.svelte'
 
@@ -24,6 +25,7 @@
         sortBy: '',
         orderBy: 'ASC'
   }
+  let isLoading: boolean = false
 
   onMount(async() => {
     getProductLists(1)
@@ -39,16 +41,26 @@
 
   async function getProductLists(pageNumber: number): Promise<void> {
     try {
-      productLists = new ProductsResponseModel
+      isLoading = true
       productRequest.page = pageNumber
       productRequest.orderBy = orderBy
       productRequest.sortBy = sortBy
       productRequest.categoryId = categoryId
       const response: ProductsResponseModel = await post('/products', productRequest)
-      productLists = response
+      setDataToProductLists(response)
     } catch (error) {
       console.error(error)
     }
+  }
+
+  function setDataToProductLists(response: ProductsResponseModel): void {
+    setTimeout(() => {
+      productLists = new ProductsResponseModel
+    }, 100)
+    setTimeout(() => {
+      isLoading = false
+      productLists = response
+    }, 200)
   }
 
   async function handleSelect(event): Promise<void> {
@@ -99,6 +111,7 @@
         />
       </div>
     </div>
+    {#if isLoading}<Loading/>{/if}
     {#each productLists.products as product}
       <div class="grid-item">
         {#if product.recommend}
