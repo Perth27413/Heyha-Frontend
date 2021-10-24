@@ -13,10 +13,11 @@
   
 
   let isLoading: boolean = false
+  let totalPrice: number = 0
   let cartProducts: Array<CartModel> = []
 
   onMount(async() => {
-    getCartProduct()
+    await getCartProduct()
   })
 
   afterUpdate(() => {
@@ -25,10 +26,16 @@
 
   async function getCartProduct(): Promise<void> {
     try {
+      isLoading = true
       const response: Array<CartModel> = await get(`/cartById?id=${getUserDetails().id}`)
-      cartProducts = response
+      setTimeout(() => {
+        isLoading = false
+        cartProducts = response
+        calculateTotalPrice()
+      }, 300)
     } catch (error) {
       console.error(error)
+      cartProducts = []
     }
   }
 
@@ -55,12 +62,20 @@
   function onConfirmClick(): void {
     navigate('/user/1/confirm')
   }
+
+  function calculateTotalPrice(): void {
+    totalPrice = 0
+    cartProducts.forEach(item => {
+      totalPrice += (item.product.price * item.productQuantity)
+    })
+  }
+
 </script>
 
 <main id="cartMain">
   {#if isLoading}<Loading/>{/if}
   <div id="cartBox">
-    {#if cartProducts.length < 1}
+    {#if !cartProducts.length}
       <div id="noDataBox">ไม่มีรายการสินค้าในตะกร้า</div>
     {:else}
       <div id="productBox">
@@ -69,7 +84,7 @@
             <img class="product-image" src={item.product.imageUrl} alt="">
             <div class="product-name">{item.product.name}</div>
             <div class="product-count-box">
-              <Steppers onCalculate={count => updateCartProduct(item.product.id, count)} count={item.productQuantity} getTotalCount={null}/>
+              <Steppers onCalculate={count => updateCartProduct(item.product.id, count)} count={item.productQuantity} getTotalCount={(item) => undefined}/>
             </div>
             <div class="each-product-price-box">{`ราคาต่อชิ้น : ${item.product.price} บาท`}</div>
             <div class="total-product-price-box">{`ราคารวม : ${item.product.price * item.productQuantity} บาท`}</div>
@@ -86,17 +101,17 @@
         <label for="" id="billHeaderText">รายการสินค้า</label>
         <hr class="line">
         <div id="productListBox">
-          {#each Array(20) as _, i}
+          {#each cartProducts as item}
             <div class="list-item-box">
-              <div class="item-details">test x1</div>
-              <div class="item-prices">99 บาท</div>
+              <div class="item-details">{`${item.product.name} x${item.productQuantity}`}</div>
+              <div class="item-prices">{`${item.product.price * item.productQuantity} บาท`}</div>
             </div>
           {/each}
         </div>
         <hr class="line">
         <div id="totalPriceBox">
           <div id="totalText">ราคารวมทั้งหมด</div>
-          <div id="totalPriceText">9999 บาท</div>
+          <div id="totalPriceText">{`${totalPrice} บาท`}</div>
         </div>
         <div id="paymentBox">
           <div id="paymentText">การชำระเงิน</div>
