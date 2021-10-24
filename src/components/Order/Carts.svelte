@@ -101,12 +101,14 @@
         <label for="" id="billHeaderText">รายการสินค้า</label>
         <hr class="line">
         <div id="productListBox">
-          {#each cartProducts as item}
-            <div class="list-item-box">
-              <div class="item-details">{`${item.product.name} x${item.productQuantity}`}</div>
-              <div class="item-prices">{`${item.product.price * item.productQuantity} บาท`}</div>
-            </div>
-          {/each}
+          {#if cartProducts.length}
+            {#each cartProducts as item}
+              <div class="list-item-box">
+                <div class="item-details">{`${item.product.name} x${item.productQuantity}`}</div>
+                <div class="item-prices">{`${item.product.price * item.productQuantity} บาท`}</div>
+              </div>
+            {/each}
+          {/if}
         </div>
         <hr class="line">
         <div id="totalPriceBox">
