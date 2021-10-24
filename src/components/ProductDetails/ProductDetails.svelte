@@ -1,13 +1,18 @@
 <script lang="ts">
   import  ProductModel  from "../../model/product/ProductModel"
-  import { get } from "../../store/api";
+  import { get, post } from "../../store/api";
   import { onMount } from 'svelte'
   import Steppers from "../Steppers/Steppers.svelte"
+  import CartRequestModel from '../../model/cart/CartRequestModel'; 
+  import { getUserDetails } from '../../store/user';
+  import { navigate } from "svelte-routing";
+  import { alertSuccess } from "../../store/notify";
   export let params = {}
   let values = Object.values(params).toString()
   let keys = Object.keys(params).toString()
   let product: ProductModel = new ProductModel
-  let count: number = 1
+  let quantity: number = 1
+  let totalPrice: number = 0
 
   onMount(async() => {
     getProductById() 
@@ -17,15 +22,32 @@
     try {
       const response: ProductModel = await get(`/product?${keys}=${values}`)
       product = response 
-      console.log(product);
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
   }
 
-  function calculatePrices(props, price) {     
-    let count = props*price
-    return count
+  async function addToCarts(): Promise<void> {
+    try {
+      const request: CartRequestModel = {
+        productId: product.id,
+        userId: getUserDetails().id,
+        productQuantity: quantity
+      }
+      await post('/cart', request)
+    } catch (error) {
+      console.error(error);  
+    }
+  }
+
+  async function addToCartandAlert(): Promise<void> {
+    await addToCarts()
+    await alertSuccess('สินค้าถูกเพิ่มในตระกร้าเรียบร้อยแล้ว')
+  }
+
+  async function buyNow(): Promise<void> {
+    await addToCarts()
+    navigate(`/user/${getUserDetails().id}/cart`)
   }
 
 </script>
@@ -51,17 +73,17 @@
         <div class="mid-row">
           <div class="product-amount">จำนวน :</div>
           <div class="amount">
-            <Steppers onCalculate={count => console.log(calculatePrices(count, product.price))} />
+            <Steppers onCalculate={() => undefined} count={quantity} getTotalCount={count => quantity = count} />
           </div>
         </div>
         <div class="mid-row">
           <div class="product-total">
-            <div class="total-text">{`฿${calculatePrices(count, product.price)}`}</div>
+            <div class="total-text">{`฿${quantity * product.price}`}</div>
           </div>
         </div>
         <div class="add-order">
-          <div class="button-buy-product">ซื้อสินค้า</div>
-          <div class="button-cart">
+          <div class="button-buy-product" on:click={() => buyNow()}>ซื้อสินค้า</div>
+          <div class="button-cart" on:click={() => addToCartandAlert()}>
             <i class="fas fa-cart-plus"></i>
           </div>
         </div>

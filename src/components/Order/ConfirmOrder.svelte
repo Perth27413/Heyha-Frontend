@@ -1,5 +1,5 @@
 <script lang="ts">
-  
+  import { getUserDetails } from '../../store/user';
 </script>
   
 <main id="confirmOrderMain">
@@ -23,16 +23,17 @@
       </div>
       <div id="addressBox">
         <div class="text-label">
-          <label for="">Udomsak Makemark</label>
+          <label for="">{`${getUserDetails().firstname} ${getUserDetails().lastname}`}</label>
         </div>
         <div class="text-label">
-          <label for="">xxx-xxx-xxxx</label>
+          <label for="">{getUserDetails().phone}</label>
         </div>
         <div class="text-label">
-          <label for="">TUB Mansion </label>
+          <label for="">{getUserDetails().address}</label>
         </div>
       </div>
       <div id="orderLists">
+        {#each Array(20) as _,i}
         <div id="textBox">
           <div class="text-order">
             <label for="">สันคอหมูสไลด์ x1</label>
@@ -41,30 +42,7 @@
             <label for="">135 บาท</label>
           </div>
         </div>
-        <div id="textBox">
-          <div class="text-order">
-            <label for="">สันคอหมูสไลด์ x1</label>
-          </div>
-          <div class="text-order">
-            <label for="">135 บาท</label>
-          </div>
-        </div>
-        <div id="textBox">
-          <div class="text-order">
-            <label for="">สันคอหมูสไลด์ x1</label>
-          </div>
-          <div class="text-order">
-            <label for="">135 บาท</label>
-          </div>
-        </div>
-        <div id="textBox">
-          <div class="text-order">
-            <label for="">สันคอหมูสไลด์ x1</label>
-          </div>
-          <div class="text-order">
-            <label for="">135 บาท</label>
-          </div>
-        </div>
+        {/each}
       </div>
     </div>
     <div id="confirmOrderBottom">
