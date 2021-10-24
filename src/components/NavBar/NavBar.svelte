@@ -1,6 +1,6 @@
 <script lang="ts">
   import { navigate } from "svelte-routing"
-  import { isLogin, getIsLogin, setLogout } from '../../store/user'
+  import { isLogin, getIsLogin, setLogout, getUserDetails } from '../../store/user'
   import { onMount } from 'svelte';
 import { alertSuccess } from '../../store/notify';
 
@@ -51,7 +51,7 @@ import { alertSuccess } from '../../store/notify';
               </div>
             </div>
           </div>
-          <div id="cartBtn" on:click={() => navigate('/user/1/cart')}>
+          <div id="cartBtn" on:click={() => navigate(`/user/${getUserDetails().id}/cart`)}>
             <div id="cartBtnIcon">
               <i class="fas fa-shopping-cart" aria-hidden="true"></i>
             </div>
