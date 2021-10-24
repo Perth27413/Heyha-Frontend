@@ -1,7 +1,11 @@
 <script lang="ts">
-  import { afterUpdate } from 'svelte'
+  import { afterUpdate, onMount } from 'svelte'
   import { navigate } from "svelte-routing"
   import Select from 'svelte-select'
+import CartModel from '../../model/cart/CartModel';
+import CartRequestModel from '../../model/cart/CartRequestModel';
+import { get, post } from '../../store/api';
+import { getUserDetails } from '../../store/user';
   import Loading from '../Loading/Loading.svelte'
   import Steppers from '../Steppers/Steppers.svelte'
 
@@ -9,35 +13,66 @@
   
 
   let isLoading: boolean = false
-  let cartProducts: Array<string> = []
+  let cartProducts: Array<CartModel> = []
+
+  onMount(async() => {
+    getCartProduct()
+  })
 
   afterUpdate(() => {
     checkIsLogin()
   })
+
+  async function getCartProduct(): Promise<void> {
+    try {
+      const response: Array<CartModel> = await get(`/cartById?id=${getUserDetails().id}`)
+      cartProducts = response
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async function updateCartProduct(productId: number, quantity: number): Promise<void> {
+    try {
+      const request: CartRequestModel = {
+        userId: getUserDetails().id,
+        productId: productId,
+        productQuantity: quantity
+      }
+      await post('/cart', request)
+      await getCartProduct()
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   function checkIsLogin(): void {
     if (!isLogin) {
       navigate('/')
     }
   }
+
+  function onConfirmClick(): void {
+    navigate('/user/1/confirm')
+  }
 </script>
 
-<main id="orderMain">
+<main id="cartMain">
   {#if isLoading}<Loading/>{/if}
-  <div id="orderBox">
+  <div id="cartBox">
     {#if cartProducts.length < 1}
       <div id="noDataBox">ไม่มีรายการสินค้าในตะกร้า</div>
     {:else}
       <div id="productBox">
         {#each cartProducts as item}
           <div class="product-order-item">
-            <img class="product-image" src="https://img.wongnai.com/p/984x0/2019/05/26/3dc36fd7adf042bbadd4475f622964b1.jpg" alt="">
-            <div class="product-name">สันคอหมูสไลด์</div>
+            <img class="product-image" src={item.product.imageUrl} alt="">
+            <div class="product-name">{item.product.name}</div>
             <div class="product-count-box">
-              <Steppers onCalculate={count => console.log(count)}/>
+              <Steppers onCalculate={count => updateCartProduct(item.product.id, count)} count={item.productQuantity} getTotalCount={null}/>
             </div>
-            <div class="each-product-price-box">ราคาต่อชิ้น : 150 บาท</div>
-            <div class="total-product-price-box">ราคารวม : 500 บาท</div>
+            <div class="each-product-price-box">{`ราคาต่อชิ้น : ${item.product.price} บาท`}</div>
+            <div class="total-product-price-box">{`ราคารวม : ${item.product.price * item.productQuantity} บาท`}</div>
             <hr class="line">
             <div class="button-delete-box">
               <button class="delete-button"><i class="fas fa-trash" aria-hidden="true"></i> ลบรายการสินค้า</button>
@@ -75,7 +110,7 @@
           </div>
         </div>
         <div id="confirmButtonBox">
-          <button id="confirmButton">ยืนยันคำสั่งซื้อ</button>
+          <button id="confirmButton" on:click={onConfirmClick}>ยืนยันคำสั่งซื้อ</button>
         </div>
       </div>
     </div>
@@ -83,5 +118,5 @@
 </main>
 
 <style lang="scss">
-  @import "./Order.scss"
+  @import "./Carts.scss"
 </style>

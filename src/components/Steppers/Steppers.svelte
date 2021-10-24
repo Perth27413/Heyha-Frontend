@@ -1,15 +1,22 @@
 <script lang="ts">
+  export let count: number = 1
+  export let getTotalCount
   export let onCalculate
-  $:onCalculate(count)
-  let count: number = 1
+  
+
   function increaseCount() {
     if (count + 1 !== 99) {
       count = count + 1
+      $:onCalculate(1)
+      $:getTotalCount(count)
     }
   }
+
   function decreaseCount() {
     if(count - 1 !== 0) {
       count = count - 1
+      $:onCalculate(-1)
+      $:getTotalCount(count)
     }
   }
 </script>
