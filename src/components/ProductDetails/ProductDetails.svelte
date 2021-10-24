@@ -7,7 +7,8 @@
   let values = Object.values(params).toString()
   let keys = Object.keys(params).toString()
   let product: ProductModel = new ProductModel
-  let count: number = 1
+  let quantity: number = 1
+  let totalPrice: number = 0
 
   onMount(async() => {
     getProductById() 
@@ -21,11 +22,6 @@
     } catch (error) {
       console.log(error);
     }
-  }
-
-  function calculatePrices(props, price) {     
-    let count = props*price
-    return count
   }
 
 </script>
@@ -51,12 +47,12 @@
         <div class="mid-row">
           <div class="product-amount">จำนวน :</div>
           <div class="amount">
-            <Steppers onCalculate={count => console.log(calculatePrices(count, product.price))} />
+            <Steppers onCalculate={() => undefined} count={quantity} getTotalCount={count => quantity = count} />
           </div>
         </div>
         <div class="mid-row">
           <div class="product-total">
-            <div class="total-text">{`฿${calculatePrices(count, product.price)}`}</div>
+            <div class="total-text">{`฿${quantity * product.price}`}</div>
           </div>
         </div>
         <div class="add-order">

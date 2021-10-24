@@ -33,6 +33,7 @@
         </div>
       </div>
       <div id="orderLists">
+        {#each Array(20) as _,i}
         <div id="textBox">
           <div class="text-order">
             <label for="">สันคอหมูสไลด์ x1</label>
@@ -41,30 +42,7 @@
             <label for="">135 บาท</label>
           </div>
         </div>
-        <div id="textBox">
-          <div class="text-order">
-            <label for="">สันคอหมูสไลด์ x1</label>
-          </div>
-          <div class="text-order">
-            <label for="">135 บาท</label>
-          </div>
-        </div>
-        <div id="textBox">
-          <div class="text-order">
-            <label for="">สันคอหมูสไลด์ x1</label>
-          </div>
-          <div class="text-order">
-            <label for="">135 บาท</label>
-          </div>
-        </div>
-        <div id="textBox">
-          <div class="text-order">
-            <label for="">สันคอหมูสไลด์ x1</label>
-          </div>
-          <div class="text-order">
-            <label for="">135 บาท</label>
-          </div>
-        </div>
+        {/each}
       </div>
     </div>
     <div id="confirmOrderBottom">

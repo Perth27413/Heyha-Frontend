@@ -2,10 +2,10 @@
   import { afterUpdate, onMount } from 'svelte'
   import { navigate } from "svelte-routing"
   import Select from 'svelte-select'
-import CartModel from '../../model/cart/CartModel';
-import CartRequestModel from '../../model/cart/CartRequestModel';
-import { get, post } from '../../store/api';
-import { getUserDetails } from '../../store/user';
+  import CartModel from '../../model/cart/CartModel';
+  import CartRequestModel from '../../model/cart/CartRequestModel';
+  import { get, post } from '../../store/api';
+  import { getUserDetails } from '../../store/user';
   import Loading from '../Loading/Loading.svelte'
   import Steppers from '../Steppers/Steppers.svelte'
 
