@@ -51,7 +51,7 @@ import { alertSuccess } from '../../store/notify';
               </div>
             </div>
           </div>
-          <div id="cartBtn" on:click={() => navigate('/user/1/order')}>
+          <div id="cartBtn" on:click={() => navigate('/user/1/cart')}>
             <div id="cartBtnIcon">
               <i class="fas fa-shopping-cart" aria-hidden="true"></i>
             </div>

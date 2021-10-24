@@ -6,7 +6,7 @@
 	import Register from './components/Register/Register.svelte';
 	import ProductDetails from './components/ProductDetails/ProductDetails.svelte';
 	import { getIsLogin } from './store/user';
-	import Order from './components/Order/Order.svelte';
+	import Cart from './components/Order/Carts.svelte';
 	import ConfirmOrder from './components/Order/ConfirmOrder.svelte'
 
 	function animateTitle(): void {
@@ -24,7 +24,7 @@
 			<Route path="/product/:id" let:params><svelte:component this={Layout} Component={ProductDetails} params={params}/></Route>
 			<Route path="/login"><svelte:component this={Layout} Component={Login} isLogin={getIsLogin()}/></Route>
 			<Route path="/register"><svelte:component this={Layout} Component={Register} isLogin={getIsLogin()}/></Route>
-			<Route path="/user/:id/order" let:params><svelte:component this={Layout} Component={Order} params={params} isLogin={getIsLogin()}/></Route>
+			<Route path="/user/:id/cart" let:params><svelte:component this={Layout} Component={Cart} params={params} isLogin={getIsLogin()}/></Route>
 			<Route path="/user/:id/confirm"><svelte:component this={Layout} Component={ConfirmOrder}/></Route>
 			<Route path="*"><svelte:component this={Layout} Component={Home}/></Route>
 		</div>
