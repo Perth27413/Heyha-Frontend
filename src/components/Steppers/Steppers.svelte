@@ -3,21 +3,22 @@
   $:onCalculate(count)
   let count: number = 1
   function increaseCount() {
-    count = count + 1
+    if (count + 1 !== 99) {
+      count = count + 1
+    }
   }
   function decreaseCount() {
-    count = count - 1
-    if(count === 0) {
-      count = 1
+    if(count - 1 !== 0) {
+      count = count - 1
     }
   }
 </script>
 
 <main id="steppersMain">
   <div id="steppersBox">
-    <div id="left" on:click={() => decreaseCount()}>-</div>
-    <div id="center">{count}</div>
-    <div id="right" on:click={() => increaseCount()}>+</div>
+    <div class={`left ${count <= 1 ? 'disable' : ''}`} on:click={() => decreaseCount()}>-</div>
+    <div class="center">{count}</div>
+    <div class={`right ${count === 99 ? 'disable' : ''}`} on:click={() => increaseCount()}>+</div>
   </div>
 </main>
 
