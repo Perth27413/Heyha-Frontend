@@ -90,7 +90,7 @@
     }
     #billBox {
       width: calc(#{$bill-width - 20px});
-      margin-right: 20px;
+      margin: 0 10px 30px;
       #bill {
         background-color: #ffffff;
         padding: 20px;
@@ -145,17 +145,17 @@
           align-items: center;
           margin-bottom: 10px;
           #paymentText {
-            width: 50%;
+            width: 30%;
           }
           #paymentSelectBox {
-            width: 50%;
+            width: 70%;
             text-align: end;
             font-size: 14px;
             --border: 1px solid #bebebe;
             --borderFocusColor: #7B7B7B;
             --borderHoverColor: #7B7B7B;
             --borderRadius: 5px;
-            --inputPadding: 3px 35px 0 10px;
+            --inputPadding: 3px 20px 4px 10px;
             --indicatorHeight: 20px;
             --height: 35px;
             --indicatorTop: 7px;
