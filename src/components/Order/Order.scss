@@ -17,6 +17,7 @@
       grid-template-columns: repeat(auto-fill, minmax(180px, 210px));
       grid-gap: 15px;
       justify-content: center;
+      padding-bottom: 30px;
       @media screen and (max-width: 760px) {
         width: 95%;
       }
@@ -88,11 +89,12 @@
       }
     }
     #billBox {
-      width: $bill-width;
+      width: calc(#{$bill-width - 20px});
+      margin-right: 20px;
       #bill {
         background-color: #ffffff;
         padding: 20px;
-        box-shadow: 3px 2px 8px #e2e2e2;
+        box-shadow: 3px 2px 8px #ececec;
         #billHeaderText {
           font-size: 24px;
           font-weight: 500;
@@ -112,13 +114,13 @@
             display: flex;
             .item-details {
               width: 70%;
-              margin: 0 0 0 10px;
+              margin: 0 0 0 15px;
             }
             .item-prices {
               width: 30%;
               display: flex;
               justify-content: flex-end;
-              margin: 0 10px 0 0;
+              margin: 0 15px 0 0;
             }
           }
         }
@@ -171,6 +173,10 @@
             font-size: 18px;
             font-weight: bold;
             margin: 0;
+            &:hover {
+              background-color: #ff9900;
+              cursor: pointer;
+            }
           }
         }
       }
