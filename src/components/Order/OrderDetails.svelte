@@ -27,7 +27,7 @@
     <div id="headerText">หมายเลขคำสั่งซื้อ #{orderDetails.id}</div>
     <div id="statusBox">
       <div id="statusKeyText">สถานะ :</div>
-      <div id="statusValueText">กำลังจัดส่ง</div>
+      <div id="statusValueText">{orderDetails.statusId.name}</div>
     </div>
     <div id="imageBox">
       <img id="imageMoto" class={`${orderDetails.statusId.id === 1 ? 'waiting' : ''}`} src={`/images/${orderDetails.statusId.id === 1 ? 'moto' : 'finish'}.gif`} alt="">
