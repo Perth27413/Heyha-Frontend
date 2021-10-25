@@ -53,6 +53,20 @@
     }
   }
 
+  async function deleteCartProduct(productId: number, quantity: number): Promise<void> {
+    try {
+      const request: CartRequestModel = {
+        userId: getUserDetails().id,
+        productId: productId,
+        productQuantity: quantity
+      }
+      await post('/cart/delete', request)
+      await getCartProduct()
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   function checkIsLogin(): void {
     if (!isLogin) {
       navigate('/')
@@ -90,7 +104,7 @@
             <div class="total-product-price-box">{`ราคารวม : ${item.product.price * item.productQuantity} บาท`}</div>
             <hr class="line">
             <div class="button-delete-box">
-              <button class="delete-button"><i class="fas fa-trash" aria-hidden="true"></i> ลบรายการสินค้า</button>
+              <button class="delete-button" on:click={() => deleteCartProduct(item.product.id, item.productQuantity)}><i class="fas fa-trash" aria-hidden="true"></i> ลบรายการสินค้า</button>
             </div>
           </div>
         {/each}
