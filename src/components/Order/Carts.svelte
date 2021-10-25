@@ -7,7 +7,7 @@
   import PaymentModel from '../../model/payment/PaymentModel'
   import SelectModel from '../../model/SelectModel'
   import { get, post } from '../../store/api'
-  import { getUserDetails } from '../../store/user'
+  import { getCartProductLength, getUserDetails, setCartProductLength } from '../../store/user'
   import Loading from '../Loading/Loading.svelte'
   import Steppers from '../Steppers/Steppers.svelte'
 
@@ -37,6 +37,7 @@
         isLoading = false
         cartProducts = response
         calculateTotalPrice()
+        setCartProductLength(cartProducts.length)
       }, 300)
     } catch (error) {
       console.error(error)
@@ -170,6 +171,7 @@
               isClearable={false}
               placeholder="ช่องทางการชำระเงิน"
               items={paymentSelects}
+              value={paymentSelects[0]}
             />
           </div>
         </div>
