@@ -5,22 +5,23 @@
     getIsLogin,
     setLogout,
     getUserDetails,
+    setCartProductLength,
+    cartProductLength,
+    getCartProductLength,
   } from "../../store/user";
   import { onMount } from "svelte";
   import { alertSuccess } from "../../store/notify";
   import CartModel from "../../model/cart/CartModel";
   import { get } from "../../store/api";
 
-  let loginChecked: boolean = getIsLogin();
-  let cartProducts: Array<CartModel> = [];
+  let loginChecked: boolean = getIsLogin()
+  let cartProducts: Array<CartModel> = []
+  let totalProduct: number = 0
 
-  onMount(() => {
+  onMount(async() => {
     isLogin.subscribe((results) => (loginChecked = results));
-  });
-
-  onMount(async () => {
-    await getCartProduct();
-  });
+    await getCartProduct()
+  })
 
   let isShowLogout: boolean = false;
 
@@ -40,11 +41,16 @@
         `/cartById?id=${getUserDetails().id}`
       );
       cartProducts = response;
+      setCartProductLength(cartProducts.length)
     } catch (error) {
-      console.error(error);
-      cartProducts = [];
+      console.error(error)
+      cartProducts = []
     }
   }
+
+  cartProductLength.subscribe(item => {
+    totalProduct = item
+  })
 </script>
 
 <main>
@@ -86,7 +92,7 @@
             <div id="cartBtnCount">
               <div id="countBox">
                 <div id="countText">
-                  {cartProducts.length ?? 0}
+                  {totalProduct ?? 0}
                 </div>
               </div>
             </div>

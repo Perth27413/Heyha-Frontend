@@ -1,18 +1,22 @@
 <script lang="ts">
   import  ProductModel  from "../../model/product/ProductModel"
-  import { get, post } from "../../store/api";
+  import { get, post } from "../../store/api"
   import { onMount } from 'svelte'
   import Steppers from "../Steppers/Steppers.svelte"
-  import CartRequestModel from '../../model/cart/CartRequestModel'; 
-  import { getUserDetails } from '../../store/user';
-  import { navigate } from "svelte-routing";
-  import { alertSuccess } from "../../store/notify";
+  import CartRequestModel from '../../model/cart/CartRequestModel' 
+  import { getCartProductLength, getUserDetails, setCartProductLength } from '../../store/user'
+  import { navigate } from "svelte-routing"
+  import { alertSuccess } from "../../store/notify"
+  import CartModel from "../../model/cart/CartModel"
+
   export let params = {}
+
   let values = Object.values(params).toString()
   let keys = Object.keys(params).toString()
   let product: ProductModel = new ProductModel
   let quantity: number = 1
   let totalPrice: number = 0
+  let cartProducts: Array<CartModel> = []
 
   onMount(async() => {
     getProductById() 
@@ -43,11 +47,25 @@
   async function addToCartandAlert(): Promise<void> {
     await addToCarts()
     await alertSuccess('สินค้าถูกเพิ่มในตระกร้าเรียบร้อยแล้ว')
+    await getCartProduct()
   }
 
   async function buyNow(): Promise<void> {
     await addToCarts()
     navigate(`/user/${getUserDetails().id}/cart`)
+  }
+
+  async function getCartProduct(): Promise<void> {
+    try {
+      const response: Array<CartModel> = await get(
+        `/cartById?id=${getUserDetails().id}`
+      )
+      cartProducts = response;
+      setCartProductLength(cartProducts.length)
+    } catch (error) {
+      console.error(error)
+      cartProducts = []
+    }
   }
 
 </script>
