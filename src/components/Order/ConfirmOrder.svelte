@@ -1,9 +1,63 @@
 <script lang="ts">
   import { getUserDetails } from '../../store/user'
   import { navigate } from "svelte-routing"
+  import CartModel from '../../model/cart/CartModel'
+  import { get, post } from '../../store/api'
+  import Loading from '../Loading/Loading.svelte'
+  import { onMount } from 'svelte'
+  import AddOrderRequest from '../../model/order/AddOrderRequest'
+
+  let isLoading: boolean = false
+  let cartProducts: Array<CartModel> = []
+  let totalPrice: number = 0
+  let orderId: number
+
+  onMount(async() => {
+    await getCartProduct() 
+  })
+
+  async function getCartProduct(loading: boolean = true): Promise<void> {
+    try {
+      if (loading) isLoading = true
+      const response: Array<CartModel> = await get(`/cartById?id=${getUserDetails().id}`) 
+      setTimeout(() => {
+        isLoading = false
+        cartProducts = response
+        console.log(cartProducts);    
+        calculateTotalPrice()
+      }, 300)
+    } catch (error) {
+      console.error(error)
+      cartProducts = []
+    }
+  }
+
+  function calculateTotalPrice(): void {
+    totalPrice = 0
+    cartProducts.forEach(item => {
+      totalPrice += (item.product.price * item.productQuantity)
+    })
+  }
+
+  async function addOrder(): Promise<void> {
+    try {
+      const request: AddOrderRequest = {
+        userId: getUserDetails().id,
+        paymentId: 1,
+        total: totalPrice
+      }
+      let response = await post('/order', request)
+      orderId = response.orderId
+      navigate(`/user/${getUserDetails().id}/order/${orderId}`)
+    } catch (error) {
+      console.error(error);  
+    }
+  }
+
 </script>
   
 <main id="confirmOrderMain">
+  {#if isLoading}<Loading/>{/if}
   <div id="confirmOrderBox">
     <div id="confirmOrderHeader">
       <label id="textHeader" for="">ยืนยันรายการสินค้า</label>
@@ -34,13 +88,13 @@
         </div>
       </div>
       <div id="orderLists">
-        {#each Array(20) as _,i}
+        {#each cartProducts as items }
         <div id="textBox">
           <div class="text-order">
-            <label for="">สันคอหมูสไลด์ x1</label>
+            <label for="">{`${items.product.name} x${items.productQuantity}`}</label>
           </div>
           <div class="text-order">
-            <label for="">135 บาท</label>
+            <label for="">{`${items.product.price * items.productQuantity} บาท`}</label>
           </div>
         </div>
         {/each}
@@ -50,7 +104,7 @@
       <div id="totalBox">
         <div id="textTotalBox">
           <label for="">ราคารวมทั้งหมด</label>
-          <label for="">800 บาท</label>
+          <label for="">{`${totalPrice} บาท`}</label>
         </div>
       </div>
       <div id="paymentMethod">
@@ -59,7 +113,7 @@
           <label for="">เก็บเงินปลายทาง</label>
         </div>
       </div>
-      <button class="button-confirm" on:click={() => navigate('/user/1/order/1')}>ยืนยันรายการอาหาร</button>
+      <button class="button-confirm" on:click={() => addOrder()}>ยืนยันรายการอาหาร</button>
     </div>
   </div>
 </main>
