@@ -22,8 +22,7 @@
       const response: Array<CartModel> = await get(`/cartById?id=${getUserDetails().id}`) 
       setTimeout(() => {
         isLoading = false
-        cartProducts = response
-        console.log(cartProducts);    
+        cartProducts = response    
         calculateTotalPrice()
       }, 300)
     } catch (error) {
@@ -61,7 +60,6 @@
   <div id="confirmOrderBox">
     <div id="confirmOrderHeader">
       <label id="textHeader" for="">ยืนยันรายการสินค้า</label>
-      <label id="textOrderId" for="">#31</label>
       <div id="badge">
         <label class="status" for="">รอการยืนยัน</label>
       </div>
