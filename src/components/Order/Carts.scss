@@ -70,8 +70,8 @@
         .total-product-price-box {
           background-color: #FFB800;
           color: #ffffff;
-          font-weight: 600;
-          font-size: 14px;
+          font-weight: 500;
+          font-size: 17px;
         }
         .line {
           margin: 0 10px;
@@ -160,7 +160,6 @@
           }
           #paymentSelectBox {
             width: 70%;
-            text-align: end;
             font-size: 14px;
             --border: 1px solid #bebebe;
             --borderFocusColor: #7B7B7B;
@@ -187,6 +186,10 @@
             &:hover {
               background-color: #ff9900;
               cursor: pointer;
+            }
+            &.disable {
+              background-color: #ffd875;
+              cursor: no-drop;
             }
           }
         }

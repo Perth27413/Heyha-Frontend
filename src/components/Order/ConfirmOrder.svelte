@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { getUserDetails } from '../../store/user';
+  import { getUserDetails } from '../../store/user'
+  import { navigate } from "svelte-routing"
 </script>
   
 <main id="confirmOrderMain">
@@ -58,7 +59,7 @@
           <label for="">เก็บเงินปลายทาง</label>
         </div>
       </div>
-      <button class="button-confirm">ยืนยันรายการอาหาร</button>
+      <button class="button-confirm" on:click={() => navigate('/user/1/order/1')}>ยืนยันรายการอาหาร</button>
     </div>
   </div>
 </main>
