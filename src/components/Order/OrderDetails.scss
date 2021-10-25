@@ -1,0 +1,50 @@
+#orderDetailsMain {
+  $navHeight: 50px;
+  $footerHeight: 55px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - (#{$navHeight} + #{$footerHeight}));
+  overflow-y: auto;
+  #detailsBox {
+    background-color: #ffffff;
+    width: 70%;
+    max-width: 450px;
+    min-width: 365px;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    border-radius: 5px;
+    box-shadow: 3px 2px 8px #cfcfcf;
+    #headerText {
+      color: #4D4D4D;
+      font-size: 26px;
+      font-weight: bold;
+      margin: 40px 0 20px;
+    }
+    #statusBox {
+      display: flex;
+      border: 2px solid #FFB800;
+      padding: 8px 20px;
+      border-radius: 50px;
+      margin: 0 0 30px 0;
+      #statusKeyText, #statusValueText {
+        font-size: 20px;
+        font-weight: 600;
+        color: #6C6C6C;
+      }
+      #statusValueText {
+        color: #FF9900;
+        margin: 0 0 0 5px;
+      }
+    }
+    #imageBox {
+      display: flex;
+      justify-content: center;
+      margin: 0 0 30px;
+      #imageMoto {
+        width: 80%;
+      }
+    }
+  }
+}
