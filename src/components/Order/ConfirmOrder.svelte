@@ -10,6 +10,7 @@
   let isLoading: boolean = false
   let cartProducts: Array<CartModel> = []
   let totalPrice: number = 0
+  let orderId: number
 
   onMount(async() => {
     await getCartProduct() 
@@ -45,8 +46,9 @@
         paymentId: 1,
         total: totalPrice
       }
-      await post('/order', request)
-      navigate(`/user/${getUserDetails().id}/order/1`)
+      let response = await post('/order', request)
+      orderId = response.orderId
+      navigate(`/user/${getUserDetails().id}/order/${orderId}`)
     } catch (error) {
       console.error(error);  
     }
