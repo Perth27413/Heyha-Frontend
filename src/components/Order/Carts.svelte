@@ -2,10 +2,12 @@
   import { afterUpdate, onMount } from 'svelte'
   import { navigate } from "svelte-routing"
   import Select from 'svelte-select'
-  import CartModel from '../../model/cart/CartModel';
-  import CartRequestModel from '../../model/cart/CartRequestModel';
-  import { get, post } from '../../store/api';
-  import { getUserDetails } from '../../store/user';
+  import CartModel from '../../model/cart/CartModel'
+  import CartRequestModel from '../../model/cart/CartRequestModel'
+  import PaymentModel from '../../model/payment/PaymentModel'
+  import SelectModel from '../../model/SelectModel'
+  import { get, post } from '../../store/api'
+  import { getUserDetails } from '../../store/user'
   import Loading from '../Loading/Loading.svelte'
   import Steppers from '../Steppers/Steppers.svelte'
 
@@ -15,18 +17,21 @@
   let isLoading: boolean = false
   let totalPrice: number = 0
   let cartProducts: Array<CartModel> = []
+  let paymentLists: Array<PaymentModel> = []
+  let paymentSelects: Array<SelectModel> = []
 
   onMount(async() => {
     await getCartProduct()
+    getPayments()
   })
 
   afterUpdate(() => {
     checkIsLogin()
   })
 
-  async function getCartProduct(): Promise<void> {
+  async function getCartProduct(loading: boolean = true): Promise<void> {
     try {
-      isLoading = true
+      if (loading) isLoading = true
       const response: Array<CartModel> = await get(`/cartById?id=${getUserDetails().id}`)
       setTimeout(() => {
         isLoading = false
@@ -47,7 +52,7 @@
         productQuantity: quantity
       }
       await post('/cart', request)
-      await getCartProduct()
+      await getCartProduct(false)
     } catch (error) {
       console.error(error)
     }
@@ -61,10 +66,34 @@
         productQuantity: quantity
       }
       await post('/cart/delete', request)
-      await getCartProduct()
+      await getCartProduct(false)
     } catch (error) {
       console.error(error)
     }
+  }
+
+  async function getPayments(): Promise<void> {
+    try {
+      const response: Array<PaymentModel> = await get('/payments')
+      paymentLists = response
+      convertPaymentsModelToPaymentsSelect()
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  function convertPaymentsModelToPaymentsSelect(): Array<SelectModel> {
+    let results: Array<SelectModel> = []
+    paymentLists.forEach((item: PaymentModel, index: number) => {
+      let orderSelect: SelectModel = {
+        value: item.id,
+        label: !index ? item.method : item.method + ' - รอการอัปเดต',
+        selectable: !index ? true : false
+      }
+      results.push(orderSelect)
+    })
+    paymentSelects = results
+    return paymentSelects
   }
 
   function checkIsLogin(): void {
@@ -74,7 +103,9 @@
   }
 
   function onConfirmClick(): void {
-    navigate('/user/1/confirm')
+    if (cartProducts.length) {
+      navigate(`/user/${getUserDetails().id}/confirm`)
+    }
   }
 
   function calculateTotalPrice(): void {
@@ -136,12 +167,14 @@
               id="paymentSelect"
               isSearchable={false}
               showChevron={true}
+              isClearable={false}
               placeholder="ช่องทางการชำระเงิน"
+              items={paymentSelects}
             />
           </div>
         </div>
         <div id="confirmButtonBox">
-          <button id="confirmButton" on:click={onConfirmClick}>ยืนยันคำสั่งซื้อ</button>
+          <button id="confirmButton" class={!cartProducts.length ? 'disable' : ''} on:click={onConfirmClick}>ยืนยันคำสั่งซื้อ</button>
         </div>
       </div>
     </div>
