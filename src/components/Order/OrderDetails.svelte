@@ -11,7 +11,7 @@
       <div id="statusValueText">กำลังจัดส่ง</div>
     </div>
     <div id="imageBox">
-      <img id="imageMoto" src="/images/moto.gif" alt="">
+      <img id="imageMoto" class={`waiting`} src="/images/finish.gif" alt="">
     </div>
   </div>
 </main>

@@ -43,7 +43,12 @@
       justify-content: center;
       margin: 0 0 30px;
       #imageMoto {
-        width: 80%;
+        width: 300px;
+        height: 310px;
+        .waiting {
+          -webkit-transform: scaleX(-1);
+          transform: scaleX(-1);
+        }
       }
     }
   }
