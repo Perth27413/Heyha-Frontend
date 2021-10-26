@@ -28,6 +28,18 @@
       padding: 8px 20px;
       border-radius: 50px;
       margin: 0 0 30px 0;
+      &.deliver {
+        border-color: #4591FF;
+        #statusValueText {
+          color: #4591FF;
+        }
+      }
+      &.finish {
+        border-color: #4CE532;
+        #statusValueText {
+          color: #4CE532;
+        }
+      }
       #statusKeyText, #statusValueText {
         font-size: 20px;
         font-weight: 600;
@@ -45,7 +57,7 @@
       #imageMoto {
         width: 300px;
         height: 310px;
-        &.waiting {
+        &.deliver {
           -webkit-transform: scaleX(-1);
           transform: scaleX(-1);
         }
