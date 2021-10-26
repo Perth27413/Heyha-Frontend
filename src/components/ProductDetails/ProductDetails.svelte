@@ -4,13 +4,12 @@
   import { onMount } from 'svelte'
   import Steppers from "../Steppers/Steppers.svelte"
   import CartRequestModel from '../../model/cart/CartRequestModel' 
-  import { getCartProductLength, getUserDetails, setCartProductLength } from '../../store/user'
+  import { getCartProductLength, getIsLogin, getUserDetails, setCartProductLength } from '../../store/user'
   import { navigate } from "svelte-routing"
-  import { alertSuccess } from "../../store/notify"
+  import { alertSuccess, alertWarning } from "../../store/notify"
   import CartModel from "../../model/cart/CartModel"
 
   export let params = {}
-
   let values = Object.values(params).toString()
   let keys = Object.keys(params).toString()
   let product: ProductModel = new ProductModel
@@ -45,14 +44,22 @@
   }
 
   async function addToCartandAlert(): Promise<void> {
+    if (getIsLogin()) {
     await addToCarts()
     await alertSuccess('สินค้าถูกเพิ่มในตระกร้าเรียบร้อยแล้ว')
     await getCartProduct()
+    } else {
+      await alertWarning('กรุณาเข้าสู่ระบบก่อนสั่งสินค้า')
+    }
   }
 
   async function buyNow(): Promise<void> {
+    if (getIsLogin()) {
     await addToCarts()
     navigate(`/user/${getUserDetails().id}/cart`)
+    } else {
+      await alertWarning('กรุณาเข้าสู่ระบบก่อนสั่งสินค้า')
+    }
   }
 
   async function getCartProduct(): Promise<void> {
