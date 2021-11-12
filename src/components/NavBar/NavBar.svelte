@@ -73,12 +73,12 @@
         </div>
       {:else}
         <div id="detailsBox">
-          <div id="cartMobile">
+          <div id="cartMobile" on:click={() => navigate(`/user/${getUserDetails().id}/cart`)}>
             <div id="cartMobileBox">
               <div id="cartMobileIcon">
                 <i class="fas fa-shopping-cart" aria-hidden="true" />
               </div>
-              <div id="cartMobileCount">1</div>
+              <div id="cartMobileCount">{totalProduct ?? 0}</div>
             </div>
           </div>
           <div
